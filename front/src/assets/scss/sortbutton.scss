@@ -1,0 +1,19 @@
+.sort-btn-wrap {
+    margin: 80px 0px 20px 0; // 위 오 아 왼
+    float: right;
+    .btn-group {
+        .btn {
+            border: none;
+            font-size: 12px;
+            color: gray;
+            &:focus, &:hover {
+                background-color: transparent;
+            }
+            &.active {
+                background-color: transparent;
+                color: black;
+                font-weight: bold;
+            }
+        }
+    }
+}

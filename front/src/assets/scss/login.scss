@@ -1,0 +1,33 @@
+.login-main {
+    position: relative;
+    width: 400px;
+    margin: 80px auto;
+    .title {
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .login-form {
+        margin-bottom: 30px;
+        button {
+            width: 100%;
+            margin-top: 10px;
+        }
+        .pwd-eye-i {
+            cursor: pointer;
+            position: absolute;
+            left: 365px;
+            top: 217px;
+        }
+    }
+    .login-reg {
+        text-align: center;
+        button {
+            margin-left: 15px;
+            background-color: transparent;
+            border-color: dodgerblue;
+            color: dodgerblue;
+        }
+    }
+}
