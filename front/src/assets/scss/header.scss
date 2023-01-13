@@ -1,0 +1,64 @@
+body {
+    padding: 10px 20px 20px 20px; // 위 오 아 왼
+    margin: 10px 100px; // 세 가
+    min-width: 700px;
+}
+
+.hdr-wrap {
+    .topmenu {
+        .nav li.nav-item {
+            margin-left: 10px;
+            .nav-link {
+                color: gray;
+            }
+        }
+    }
+    .mid-wrap {
+        height: 90px;
+        padding: 0px 10px;
+        .title {
+            font-size: 40px;
+            font-weight: bolder;
+            float: left;
+        }
+        .input-group {
+            width: 400px;
+            float: right;
+            margin-top: 15px;
+            input {
+                border: 2px solid black;
+                border-right: none;
+                border-radius: 20px;
+                &:focus, &:active {
+                    box-shadow: none;
+                }
+                padding: 6px 20px;
+            }
+            button {
+                width: 35px;
+                background: url("../img/search.png") no-repeat;
+                background-color: transparent; /* make the button transparent */
+                background-position: 1px 8px;
+                background-size: 18px;
+                vertical-align: middle; /* align the text vertically centered */
+                border: 2px solid black;
+                border-left: none;
+                border-radius: 20px;
+                &:active, &:focus {
+                    background-color: transparent;
+                }
+            }
+        }
+    }
+    .mainmenu {
+        .nav li.nav-item {
+            .nav-link {
+                color: gray;
+                &.active {
+                    color: black;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

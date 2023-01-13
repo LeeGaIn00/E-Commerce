@@ -1,0 +1,23 @@
+.starList {
+    // display: flex;
+    float: left;
+    button {
+    //   fill: grey;
+        width: 25px;
+        height: 25px;
+        background-color: transparent;
+        border: none;
+    }
+}
+
+.eachStar {
+    svg{
+        &.inactiveStar {
+            fill: #eeeeee;
+        }
+    
+        &.activeStar {
+            fill: #ffc107;
+        }
+    }
+}

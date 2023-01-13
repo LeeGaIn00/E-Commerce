@@ -1,0 +1,21 @@
+.reg-main {
+    position: relative;
+    width: 400px;
+    margin: 50px auto;
+    .title {
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+    .reg-btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+    .pwd-eye-i {
+        cursor: pointer;
+        position: absolute;
+        left: 365px;
+        top: 217px;
+    }
+}
