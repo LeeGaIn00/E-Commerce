@@ -36,7 +36,6 @@ export const AuthContextProvider = ({ children }) => {
   var logoutTimer;
   
   const signupHandler = (member) => {
-    console.log("sssss")
     setIsSuccess(false);
     const response = authService.signupActionHandler(member);
     response.then((res) => {
