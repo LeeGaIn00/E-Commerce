@@ -21,19 +21,11 @@ const emailRegEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 const phoneRegEx = /^\d{2,3}-\d{3,4}-\d{4}$/;
 const spaceRegEx = /\s/g;
 
-const Register = (props) => {
+const Register = () => {
     const authCtx = useContext(AuthContext);
     const isSuccess = authCtx.isSuccess;
     const firstUpdate = useRef(true);
-    const navigate = useNavigate();
-
-    const idInputRef = useRef(null);
-    const passwordInputRef = useRef(null);
-    const emailInputRef = useRef(null);
-    const nameInputRef = useRef(null);
-    const addressInputRef = useRef(null);
-    const phoneInputRef = useRef(null);
-    const [showPassword, setShowPassword] = useState(false);
+    const movePage = useNavigate();
 
     /* 입력 폼 */
     const [id, setId] = useState('');
@@ -45,6 +37,7 @@ const Register = (props) => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [formValid, setFormValid] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
  
     /* 유효성 검사용 */
     const [idValid, setIdValid] = useState({stat: '', msg: ''});
@@ -56,13 +49,13 @@ const Register = (props) => {
 
     /* 아이디 입력 */
     const setIdHandler = (e) => {
-    setId(e.target.value);
-}
+        setId(e.target.value);
+    }
 
     /* 비밀번호 입력 */
     const setPasswordHandler = (e) => {
-    setPassword(e.target.value);
-}
+        setPassword(e.target.value);
+    }
 
     /* 이메일 입력 */
     const setEmailHandler = (e) => {
@@ -86,25 +79,25 @@ const Register = (props) => {
 
     /* 아이디 중복 검사 및 유효성 검사*/
     const checkId = (id) => {
-    if(id === '')
-        setIdValid({stat: 'error', msg: '아이디를 입력하세요'})
-    else {
-        MemberService.checkId(id).then(res => {
-            if(res.data)
-                setIdValid({stat: 'error', msg: '사용 중인 아이디입니다'});
-            else {
-                if(spaceRegEx.test(id))
-                    setIdValid({stat: 'error', msg: '공백이 존재합니다'});
-                else if(!idRegEx.test(id))
-                    setIdValid({stat: 'error', msg: '4자 이상 16자 이하의 한 단어로 입력하세요'});
+        if(id === '')
+            setIdValid({stat: 'error', msg: '아이디를 입력하세요'})
+        else {
+            MemberService.checkId(id).then(res => {
+                if(res.data)
+                    setIdValid({stat: 'error', msg: '사용 중인 아이디입니다'});
                 else {
-                    setLastId(id);
-                    setIdValid({stat: 'success', msg: '사용 가능한 아이디입니다'});
+                    if(spaceRegEx.test(id))
+                        setIdValid({stat: 'error', msg: '공백이 존재합니다'});
+                    else if(!idRegEx.test(id))
+                        setIdValid({stat: 'error', msg: '4자 이상 16자 이하의 한 단어로 입력하세요'});
+                    else {
+                        setLastId(id);
+                        setIdValid({stat: 'success', msg: '사용 가능한 아이디입니다'});
+                    }
                 }
-            }
-        });
+            });
+        }
     }
-}
 
     /* 이메일 중복 검사 및 유효성 검사*/
     const checkEmail = (email) => {
@@ -196,33 +189,6 @@ const Register = (props) => {
         await formValidation();
         setFormValid(true);
     }
-    
-    const submitHandler = (event) => {
-        event.preventDefault();
-        const enteredId = idInputRef.current?.value;
-        const enteredPassword = passwordInputRef.current?.value;
-        const enteredEmail = emailInputRef.current?.value;
-        const enteredName = nameInputRef.current?.value;
-        const enteredAddress = addressInputRef.current?.value;
-        const enteredPhone = phoneInputRef.current?.value;
-
-        // let member = {
-        //     id: enteredId,
-        //     password: enteredPassword,
-        //     email: enteredEmail,
-        //     name: enteredName,
-        //     address: '',
-        //     phone: enteredPhone
-        // };
-        // authCtx.signup(member);
-
-        console.log("id => " + enteredId);
-        console.log("password => " + enteredPassword);
-        console.log("email => " + enteredEmail);
-        console.log("name => " + enteredName);
-        console.log("address => " + enteredAddress);
-        console.log("phone => " + enteredPhone);
-    }
 
     useEffect(() => {
         if (firstUpdate.current) {
@@ -230,7 +196,7 @@ const Register = (props) => {
         }
         else {
             if (isSuccess)
-                navigate("/");
+                movePage("/");
                 //props.history.push("/");
             else {
                 alert("회원가입 오류");
@@ -259,7 +225,6 @@ const Register = (props) => {
                     address : address,
                     phone: phone
                 };
-                
                 authCtx.signup(member);
             }
             else {
@@ -277,7 +242,7 @@ const Register = (props) => {
     return (
         <div className="reg-main">
             <div className="title">회원가입</div>
-            <Form className="reg-form" onSubmit={submitHandler}>
+            <Form className="reg-form">
                 <FormGroup>
                     <Label for="regId">
                         아이디
@@ -287,18 +252,17 @@ const Register = (props) => {
                             id="regId"
                             name="id"
                             placeholder="아이디"
-                            innerRef={idInputRef}
                             onChange={setIdHandler}
                             valid={idValid.stat === "success"}
                             invalid={idValid.stat === "error"} 
                         />
-                        {/* 위치 조정하기 */}
+                        <Button style= { {borderTopRightRadius:'0.375rem', borderBottomRightRadius:'0.375rem'} } 
+                                onClick={() => checkId(id)}>
+                            중복검사
+                        </Button>
                         <FormFeedback>
                             {idValid.msg}
                         </FormFeedback>
-                        <Button onClick={() => checkId(id)}>
-                            중복검사
-                        </Button>
                     </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -310,7 +274,6 @@ const Register = (props) => {
                         name="password"
                         placeholder="비밀번호"
                         type={showPassword ? 'text' : 'password'}
-                        innerRef={passwordInputRef}
                         onChange={setPasswordHandler} 
                         valid={passwordValid.stat === "success"}
                         invalid={passwordValid.stat === "error"}
@@ -329,14 +292,17 @@ const Register = (props) => {
                             id="regEmail"
                             name="email"
                             placeholder="sample@gmail.com"
-                            innerRef={emailInputRef}
                             onChange={setEmailHandler} 
                             valid={emailValid.stat === "success"}
                             invalid={emailValid.stat === "error"} 
                         />
-                        <Button onClick={() => checkEmail(email)}>
+                         <Button style= { {borderTopRightRadius:'0.375rem', borderBottomRightRadius:'0.375rem'} } 
+                                onClick={() => checkEmail(email)}>
                             중복검사
                         </Button>
+                        <FormFeedback>
+                            {emailValid.msg}
+                        </FormFeedback>
                     </InputGroup>
                 </FormGroup>
                 <FormGroup>
@@ -347,7 +313,6 @@ const Register = (props) => {
                         id="regName"
                         name="name"
                         placeholder="홍길동"
-                        innerRef={nameInputRef}
                         onChange={setNameHandler}
                         valid={nameValid.stat === "success"}
                         invalid={nameValid.stat === "error"}
@@ -362,7 +327,6 @@ const Register = (props) => {
                         name="address"
                         placeholder="서울특별시 강남구"
                         type="text" 
-                        innerRef={addressInputRef}
                         onChange={setAddressHandler} 
                         valid={addressValid.stat === "success"}
                         invalid={addressValid.stat === "error"} 
@@ -377,7 +341,6 @@ const Register = (props) => {
                         name="phone"
                         placeholder="010-0000-0000"
                         type="tel" 
-                        innerRef={phoneInputRef}
                         onChange={setPhoneHandler} 
                         valid={phoneValid.stat === "success"}
                         invalid={phoneValid.stat === "error"} 

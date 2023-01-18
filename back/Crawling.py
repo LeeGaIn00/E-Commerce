@@ -31,11 +31,10 @@ curs = conn.cursor()
 # 모자 url = 'https://www.musinsa.com/categories/item/007'
 # 양말/레그웨어 url = 'https://www.musinsa.com/categories/item/008'
 # 액세서리 url = 'https://www.musinsa.com/categories/item/011'
-category_id = 8
+category_id = 10
 response = requests.get(url)
 html = bs(response.text, 'lxml')
 
-#brand_html=html.select('#searchList > .li_box > .li_inner > .list_img > a')
 brand_html=html.select('#searchList > .li_box > .li_inner > .list_img > a')
 
 href_list=[]
@@ -76,6 +75,11 @@ for i in href_list:
         opt1_all = soup.select('#option1 > option')
         opt2_all = soup.select('#option2 > option')
 
+        if len(opt2_all) != 0:
+            select_opt1 = driver.find_element_by_css_selector("#option1 > option:nth-of-type(2)")
+            select_opt1.click()
+            time.sleep(0.5)
+            opt2_all = driver.find_elements_by_css_selector('#option2 > option')
 
         # 단일 옵션
         if soup.select_one('#buy_option_area > div.wrap-select-opt.box-top-line') is not None:
@@ -89,12 +93,11 @@ for i in href_list:
 
         if len(opt2_all) != 0:
             for o in opt2_all[1:]: # '옵션 선택' 제외
-                if '품절' not in o['value']: opt2_list.append(o['value'])
+                if '품절' not in o.text: opt2_list.append(o.text)
             opt2 = "/".join(opt2_list)
 
         # product INSERT
         if opt1 == '': # 단일 옵션 (options INSERT X)
-            print(opt)
             sql = "INSERT INTO product (name, price, discount, image, detail, option1, category_id) VALUES (%s, %s, %s, %s, %s, %s, %s)"
             curs.execute(sql, (name, price, discount, image, detail, opt, category_id))
             # options
@@ -127,10 +130,3 @@ for i in href_list:
         conn.commit()
     except:
         continue
-#    print('상품명 : ' + name)
-#     print('가격 : ' + price)
-#     print('할인가 : ' + discount)
-#     print('사진 :' + image)
-#     print('상세 정보 : ' + detail)
-#     print(opt1_list)
-#     print(opt2_list)
