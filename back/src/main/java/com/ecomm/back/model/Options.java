@@ -14,8 +14,14 @@ public class Options {
     private Integer id;
 
     @NonNull
-    @Column(name = "content")
-    private String content;
+    @Column(name = "option1")
+    private String option1;
+
+    @Column(name = "option2")
+    private String option2;
+
+    @Column(name = "stock")
+    private Integer stock;
 
     @NonNull
     @Column(name = "product_id")

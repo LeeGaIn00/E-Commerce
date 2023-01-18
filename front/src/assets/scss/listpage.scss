@@ -1,0 +1,28 @@
+.ctpg-title {
+    font-size: 30px;
+    text-align: center;
+    padding: 50px;
+}
+
+.prod-cnt {
+    margin: 80px 0 20px 0px; // 위 오 아 왼
+    font-size: 14px;
+    font-weight: bold;
+    float: left;
+}
+
+.search-title {
+    padding-top: 50px;
+    margin-bottom: -50px;
+    em {
+        font-style: normal;
+        font-weight: bold;
+        color: dodgerblue;
+    }
+}
+
+.no-res {
+    margin-top: 150px;
+    text-align: center;
+    color: rgb(128, 127, 127);
+}

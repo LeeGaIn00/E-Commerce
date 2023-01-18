@@ -18,7 +18,7 @@ function Item(props) {
         <div className="item-wrap">
             <NavLink href={`/shop/detail/${props.product.id}`}>
                 <div className="item-image">
-                    <img src={require(`../assets/img/${props.product.image}`)} alt="item-img"/>
+                    <img src={props.product.image} alt="item-img" />
                     <LikeButton like={like} onClick={(e) => {
                         e.preventDefault();
                         toggleLike();
@@ -38,12 +38,15 @@ function Item(props) {
                             <span className="discount">
                                 {props.product.discount}원
                             </span>
+                            <span className="price">
+                                {props.product.price}원
+                            </span>
                         </>
-                        : null
+                        :
+                        <span className="price-only">
+                            {props.product.price}원
+                        </span>
                     }
-                    <span className="price">
-                        {props.product.price}원
-                    </span>
                 </div>
             </div>
         </div>
