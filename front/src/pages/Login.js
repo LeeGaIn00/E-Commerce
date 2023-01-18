@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,17 +13,25 @@ import hideIcon from '../assets/img/hide-icon.svg'
 // styles
 import '../assets/scss/login.scss';
 
+import AuthContext from "../service/AuthContext";
+
 const Login = () => {
+  const authCtx = useContext(AuthContext);
+  const isSuccess = authCtx.isSuccess;
+  const firstUpdate = useRef(true);
+
   const idInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
   const movePage = useNavigate();
 
-  const submitHandler = (e) => {
+  const login = (e) => {
     e.preventDefault();
     const enteredId = idInputRef.current?.value;
     const enteredPassword = passwordInputRef.current?.value;
     console.log(enteredId, enteredPassword);
+
+    authCtx.login(enteredId, enteredPassword);
   }
 
   const togglePass = (e) => {
@@ -35,10 +43,25 @@ const Login = () => {
     movePage('/register');
   }
 
+  useEffect(() => {
+    if (firstUpdate.current) {
+        firstUpdate.current = false;
+    }
+    else {
+        if (isSuccess) {
+          movePage('/');
+        }
+    }
+  }, [isSuccess]);
+
+  useEffect (() => {
+    idInputRef.current.focus();
+  })
+
   return (
     <div className="login-main">
       <div className="title">로그인</div>
-      <Form className="login-form" onSubmit={submitHandler}>
+      <Form className="login-form">
         <FormGroup>
           <Label for="loginId">
             <FontAwesomeIcon icon={faFingerprint} /> 아이디
@@ -66,7 +89,7 @@ const Login = () => {
             : <img src={showIcon} className="pwd-eye-i" onClick={togglePass} alt="show"/>
           }
         </FormGroup>
-        <Button>
+        <Button onClick={login} >
           로그인
         </Button>
       </Form>
