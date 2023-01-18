@@ -22,6 +22,9 @@
         .name {
             font-size: 13px;
             font-weight: bold;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .price-info {
             margin-top: 3px;
@@ -30,7 +33,7 @@
                 color: indianred;
                 padding-right: 5px;
             }
-            .discount {
+            .discount, .price-only {
                 color: black;
                 font-size: 15px;
                 font-weight: bold;

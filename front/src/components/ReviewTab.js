@@ -42,7 +42,7 @@ function ReviewTab(props) {
                     </Row>
                     <Row className="buy-info">
                         <Col xs="auto">
-                            <img src={require(`../assets/img/${product.image}`)} alt="item-img"/>
+                            <img src={product.image} alt="item-img" />
                         </Col>
                         <Col xs="auto">
                             {product.name}
@@ -56,7 +56,7 @@ function ReviewTab(props) {
                         또 융털이라서 너무 보드랍고 겉은 코듀로이 재질로 편하게 걸쳐도 대충 입은 느낌이 아닌 꾸안꾸같은 느낌을 줘서 간편하게 입고 나가기 좋아요 !
                     </Row>
                     <Row className="image">
-                        <img src={require(`../assets/img/${product.image}`)} alt="item-img"/>
+                        <img src={product.image} alt="item-img" />
                     </Row>
                 </li>
                 <li>
@@ -78,7 +78,7 @@ function ReviewTab(props) {
                     </Row>
                     <Row className="buy-info">
                         <Col xs="auto">
-                            <img src={require(`../assets/img/${product.image}`)} alt="item-img"/>
+                            <img src={product.image} alt="item-img" />
                         </Col>
                         <Col xs="auto">
                             {product.name}
@@ -92,7 +92,7 @@ function ReviewTab(props) {
                         또 융털이라서 너무 보드랍고 겉은 코듀로이 재질로 편하게 걸쳐도 대충 입은 느낌이 아닌 꾸안꾸같은 느낌을 줘서 간편하게 입고 나가기 좋아요 !
                     </Row>
                     <Row className="image">
-                        <img src={require(`../assets/img/${product.image}`)} alt="item-img"/>
+                        <img src={product.image} alt="item-img" />
                     </Row>
                 </li>
             </ul>

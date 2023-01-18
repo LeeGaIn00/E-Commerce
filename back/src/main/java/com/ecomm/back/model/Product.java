@@ -31,10 +31,16 @@ public class Product {
     @Column(name = "detail")
     private String detail;
 
+    @Column(name = "option1")
+    private String option1;
+
+    @Column(name = "option2")
+    private String option2;
+
     @Column(name = "created_time")
     private Date createdTime;
 
-    @NonNull
-    @Column(name = "category_id")
-    private Integer categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

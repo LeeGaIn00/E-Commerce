@@ -34,19 +34,34 @@ body {
                 }
                 padding: 6px 20px;
             }
-            button {
+            div {
+                display: flex;
+                align-items: center;
+                padding-right: 10px;
+                border-top: 2px solid black;
+                border-bottom: 2px solid black;
+                .btn-close {
+                    box-sizing: border-box;
+                    width: 15px;
+                    height: 15px;
+                    &:focus {
+                        box-shadow: none;
+                    }
+                    &:active {
+                        color: inherit;
+                    }
+                }
+            }
+            .btn {
                 width: 35px;
                 background: url("../img/search.png") no-repeat;
-                background-color: transparent; /* make the button transparent */
+                background-color: transparent;
                 background-position: 1px 8px;
                 background-size: 18px;
-                vertical-align: middle; /* align the text vertically centered */
+                vertical-align: middle;
                 border: 2px solid black;
                 border-left: none;
                 border-radius: 20px;
-                &:active, &:focus {
-                    background-color: transparent;
-                }
             }
         }
     }

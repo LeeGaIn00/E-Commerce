@@ -6,16 +6,24 @@ import ReviewTab from "../components/ReviewTab";
 import InquiryTab from "../components/InquiryTab";
 
 // styles
-import '../assets/scss/shopdetail.scss';
+import "../assets/scss/shopdetail.scss";
+
+// default image
+import default_Img from "../assets/img/noDetail.jpg";
 
 function DetailTabMenu(props) {
     const product = props.product;
     const [activeTab, setActiveTab] = useState("1");
+
     const toggle = (tab) => {
         if (activeTab !== tab) {
             setActiveTab(tab);
         }
     };
+    
+    const onErrorImg = (e) => {
+        e.target.src = default_Img;
+    }
 
     return (
         <div className="detail-bottom">
@@ -47,7 +55,7 @@ function DetailTabMenu(props) {
             </Nav>
             <TabContent activeTab={activeTab} className="text-center">
                 <TabPane tabId="1">
-                    <div> <img src={require(`../assets/img/${product.detail}`)} alt="detail-img"/> </div>
+                    <div> <img src={product.detail} alt="detail-img" onError={onErrorImg} /> </div>
                 </TabPane>
                 <TabPane tabId="2">
                     <ReviewTab product={product}/>

@@ -1,11 +1,13 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
-import Home from './pages/Home.js';
-import Login from './pages/Login.js';
-import Register from './pages/Register.js';
-import Test from './pages/Test.js';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import CategoryPage from './pages/CategoryPage';
 import ShopDetail from './pages/ShoptDetail';
+import SearchPage from './pages/SearchPage';
+
+import Header from './components/Header';
 
 import "./App.css";
 
@@ -14,9 +16,12 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Home />} />
-      <Route path="/test" element={<Test />} />
-      <Route path="/shop/detail/:id" element={<ShopDetail />} />
+      <Route path="/shop" element={<Header />}>
+        <Route path="/shop/:categoryId" element={<CategoryPage />} />
+        <Route path="/shop/detail/:id" element={<ShopDetail />} />
+        <Route path="/shop/search" element={<SearchPage />}/>
+      </Route>
+      <Route path="/" element={<Navigate replace to="/shop/0" />} />
     </Routes>
   );
 }

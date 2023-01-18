@@ -5,88 +5,28 @@ import { Nav, NavItem, NavLink } from 'reactstrap';
 import '../assets/scss/header.scss';
 
 function MainMenu(props) {
+    const category = props.category;
     return (
         <div className="mainmenu">
             <Nav>
                 <NavItem>
                     <NavLink
                         href="/"
-                        active={window.location.pathname === '/'}
+                        active={window.location.pathname === encodeURI('/shop/0')}
                     >
                     전체
                     </NavLink>
                 </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/test"
-                        active={window.location.pathname === '/test'}
-                    >
-                    상의
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    아우터
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    바지
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    원피스
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    스커트
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    신발
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    여성가방
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    모자
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    양말/레그웨어
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink 
-                        href="/"
-                    >
-                    액세서리
-                    </NavLink>
-                </NavItem>
+                {category.map(cate => 
+                    <NavItem key={cate.id}>
+                        <NavLink 
+                            href={`/shop/${cate.id}`}
+                            active={window.location.pathname === encodeURI(`/shop/${cate.id}`)}
+                        >
+                        {cate.title}
+                        </NavLink>
+                    </NavItem>
+                )}
             </Nav>
             <hr />
         </div>
