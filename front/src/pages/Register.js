@@ -166,7 +166,7 @@ const Register = () => {
 
         /* 주소 */
         if(address === '')
-            setPhoneValid({stat: 'error', msg: '주소를 입력하세요'});
+            setAddressValid({stat: 'error', msg: '주소를 입력하세요'});
         else
             setAddressValid({stat: 'success', msg: ''});
 
@@ -281,7 +281,10 @@ const Register = () => {
                     {showPassword ? 
                     <img src={hideIcon} className="pwd-eye-i" onClick={togglePass} alt="hide"/>
                     : <img src={showIcon} className="pwd-eye-i" onClick={togglePass} alt="show"/>
-                    }
+                    } 
+                    <FormFeedback>
+                        {passwordValid.msg}
+                    </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                     <Label for="regEmail">
@@ -317,6 +320,9 @@ const Register = () => {
                         valid={nameValid.stat === "success"}
                         invalid={nameValid.stat === "error"}
                     />
+                    <FormFeedback>
+                        {nameValid.msg}
+                    </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                     <Label for="regAddress">
@@ -331,6 +337,9 @@ const Register = () => {
                         valid={addressValid.stat === "success"}
                         invalid={addressValid.stat === "error"} 
                     />
+                    <FormFeedback>
+                        {addressValid.msg}
+                    </FormFeedback>
                 </FormGroup>
                 <FormGroup>
                     <Label for="regPhone">
@@ -345,6 +354,9 @@ const Register = () => {
                         valid={phoneValid.stat === "success"}
                         invalid={phoneValid.stat === "error"} 
                     />
+                    <FormFeedback>
+                        {phoneValid.msg}
+                    </FormFeedback>
                 </FormGroup>
                 <Button className="reg-btn" onClick={signUp}>
                     회원가입

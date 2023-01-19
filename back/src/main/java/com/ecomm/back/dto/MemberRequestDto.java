@@ -28,6 +28,7 @@ public class MemberRequestDto {
                 .email(email)
                 .name(name)
                 .address(address)
+                .phone(phone)
                 .authority(Authority.ROLE_USER)
                 .build();
     }
