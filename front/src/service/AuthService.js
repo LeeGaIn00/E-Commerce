@@ -59,9 +59,9 @@ class AuthService {
         localStorage.removeItem('expirationTime');
     };
 
-    // getUserActionHandler = (token) => {
-    //     return axios.get("http://localhost:8080/member/me", createTokenHeader(token));
-    // }
+    getUserActionHandler = (token) => {
+        return axios.get("http://localhost:8080/member/me", createTokenHeader(token));
+    }
 
     // changeProfileActionHandler = (exProfile, newProfile, token) => {
     //     const changeProfObj = { exProfile, newProfile };

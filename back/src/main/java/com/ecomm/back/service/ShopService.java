@@ -5,7 +5,7 @@ import com.ecomm.back.dto.ProductListDto;
 import com.ecomm.back.model.Category;
 import com.ecomm.back.model.Product;
 import com.ecomm.back.repository.CategoryRepository;
-import com.ecomm.back.repository.ShopRepository;
+import com.ecomm.back.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ShopService {
-    private final ShopRepository shopRepository;
+    private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
     public List<Category> getCateList() {
@@ -25,9 +25,9 @@ public class ShopService {
     public List<ProductListDto> getProducts(Integer categoryId) {
         List<Product> productList;
         if(categoryId == 0) {
-            productList = shopRepository.findAll();
+            productList = productRepository.findAll();
         } else {
-            productList = shopRepository.getProductsByCate(categoryId);
+            productList = productRepository.getProductsByCate(categoryId);
         }
         List<ProductListDto> productDtoList = productList.stream()
                 .map(product-> ProductListDto.of(product))
@@ -36,13 +36,13 @@ public class ShopService {
     }
 
     public ProductDto getProductById(Integer id) {
-        return shopRepository.findById(id)
+        return productRepository.findById(id)
                 .map(ProductDto::of)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 상품입니다."));
     }
 
     public List<ProductListDto> searchProducts(String keyword) {
-        List<Product> productList = shopRepository.findByNameContaining(keyword);
+        List<Product> productList = productRepository.findByNameContaining(keyword);
         List<ProductListDto> productDtoList = productList.stream()
                 .map(product-> ProductListDto.of(product))
                 .collect(Collectors.toList());

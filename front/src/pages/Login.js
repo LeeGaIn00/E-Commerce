@@ -13,6 +13,7 @@ import hideIcon from '../assets/img/hide-icon.svg'
 // styles
 import '../assets/scss/login.scss';
 
+// service
 import AuthContext from "../service/AuthContext";
 
 const Login = () => {
@@ -41,6 +42,12 @@ const Login = () => {
 
   const goToReg = (e) => {
     movePage('/register');
+  }
+
+  /* login enter event */
+  const onKeyPress = (e) => {
+    if(e.key === 'Enter') 
+      login(e);
   }
 
   useEffect(() => {
@@ -83,6 +90,8 @@ const Login = () => {
             placeholder="비밀번호"
             type={showPassword ? 'text' : 'password'}
             innerRef={passwordInputRef}
+            value={passwordInputRef.current?.value}
+            onKeyPress={onKeyPress}
           />
           {showPassword ? 
             <img src={hideIcon} className="pwd-eye-i" onClick={togglePass} alt="hide"/>

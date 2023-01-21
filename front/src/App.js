@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import CategoryPage from './pages/CategoryPage';
 import ShopDetail from './pages/ShoptDetail';
 import SearchPage from './pages/SearchPage';
+import MyPage from './pages/MyPage';
 
 import Header from './components/Header';
 
@@ -16,6 +17,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/mypage/:id" element={<MyPage />} />
       <Route path="/shop" element={<Header />}>
         <Route path="/shop/:categoryId" element={<CategoryPage />} />
         <Route path="/shop/detail/:id" element={<ShopDetail />} />
