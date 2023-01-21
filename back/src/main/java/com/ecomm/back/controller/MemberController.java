@@ -17,13 +17,12 @@ public class MemberController {
 
     private final MemberService memberService;
 
-//    @GetMapping("/me")
-//    public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
-//        MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
-//        System.out.println(myInfoBySecurity.getName());
-//        return ResponseEntity.ok((myInfoBySecurity));
-//        // return ResponseEntity.ok(memberService.getMyInfoBySecurity());
-//    }
+    @GetMapping("/me")
+    public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
+        MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
+        System.out.println(myInfoBySecurity.getName());
+        return ResponseEntity.ok((myInfoBySecurity));
+    }
 
     @GetMapping("/check/id/{id}")
     public ResponseEntity<?> checkId(@PathVariable("id") String id) {

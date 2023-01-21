@@ -14,7 +14,6 @@ import java.util.List;
 @RequestMapping("/shop")
 public class ShopController {
     private final ShopService shopService;
-
     /* 카테고리 불러오기 */
     @GetMapping("/category-list")
     public List<Category> getCateList() {
