@@ -1,11 +1,14 @@
 package com.ecomm.back.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Entity
@@ -38,6 +41,10 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Review> reviews = new ArrayList<Review>();
 
     public void setName(String name) {
         this.name = name;

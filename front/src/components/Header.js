@@ -21,7 +21,7 @@ function Header(props) {
     useEffect(() => {
         ShopService.getCateList().then(res => {
             setCategory(res.data);
-        })
+        });
     }, []);
 
     const onChangeSearch = (e) => {
