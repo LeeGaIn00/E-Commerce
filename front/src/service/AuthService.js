@@ -68,10 +68,10 @@ class AuthService {
     //     return axios.post("http://localhost:8080/member/profile", changeProfObj, createTokenHeader(token));
     // }
 
-    // changePasswordActionHandler = (exPassword, newPassword, token) => {
-    //     const changePwdObj = { exPassword, newPassword }
-    //     return axios.post("http://localhost:8080/member/password", changePwdObj, createTokenHeader(token));
-    // }
+    changePasswordActionHandler = (exPassword, newPassword, token) => {
+        const changePwdObj = { exPassword, newPassword }
+        return axios.post("http://localhost:8080/member/password", changePwdObj, createTokenHeader(token));
+    }
 
 }
 

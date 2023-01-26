@@ -1,0 +1,76 @@
+.mypage-body {
+
+    .mypage-main {
+       display: flex;
+        
+        .mp-nav {
+            float: left;
+            margin: 10px 40px 0px 0px;
+        }
+        .edit-info {
+            flex-grow: 1;
+        }
+    }
+}
+
+
+// .mypage-body {
+//     .mypage-header {
+//         h3 {
+//             text-align: center;
+//             margin-top: 30px;
+//             margin-bottom: 30px;
+//         }
+//         .info-text { 
+//             text-align: center;
+//             margin-bottom: 30px;
+
+            
+//             Button {
+//                 border-radius: 0;
+//                 margin-left: 10px;
+//             }
+//         }
+//     }
+    
+//     .mypage-nav {
+//         float: left;
+//     }
+//     .mypage-main {
+//        // float: right;
+//     }
+//     .mypage {
+//         margin-top: 80px;
+//         float: right;
+//         .container {
+//             display: flex;
+//             justify-content: center;  
+
+//             .mypage-profile {
+//                 height: 60px;
+//                 width: 60px;
+//                 border-radius: 60px;
+//             }
+
+//             .info-top {
+//                 text-align: center;
+//             }
+
+//             .info-text .info-header{
+//                 margin: 30px;
+
+//                 .info-group {
+//                     margin-top: 30px;
+//                 }
+//             }
+        
+//             .mypage-order {
+//                 margin-top: 10px;
+//                 text-align: center;
+//             }
+        
+//         }
+
+        
+//     }
+// }
