@@ -34,9 +34,9 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(memberService.checkEmail(email));
     }
 
-//    @PostMapping("/password")
-//    public ResponseEntity<MemberResponseDto> setMemberPassword(@RequestBody ChangePasswordRequestDto request) {
-//        return ResponseEntity.ok(memberService.changeMemberPassword(request.getExPassword(), request.getNewPassword()));
-//    }
+    @PostMapping("/password")
+    public ResponseEntity<MemberResponseDto> setMemberPassword(@RequestBody ChangePasswordRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberPassword(request.getExPassword(), request.getNewPassword()));
+    }
 
 }
