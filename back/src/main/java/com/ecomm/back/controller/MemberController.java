@@ -20,7 +20,6 @@ public class MemberController {
     @GetMapping("/me")
     public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
         MemberResponseDto myInfoBySecurity = memberService.getMyInfoBySecurity();
-        System.out.println(myInfoBySecurity.getName());
         return ResponseEntity.ok((myInfoBySecurity));
     }
 
@@ -39,4 +38,23 @@ public class MemberController {
         return ResponseEntity.ok(memberService.changeMemberPassword(request.getExPassword(), request.getNewPassword()));
     }
 
+    @PostMapping("/email")
+    public ResponseEntity<MemberResponseDto> setMemberEmail(@RequestBody MemberRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberEmail(request.getEmail()));
+    }
+
+    @PostMapping("/name")
+    public ResponseEntity<MemberResponseDto> setMemberName(@RequestBody MemberRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberName(request.getName()));
+    }
+
+    @PostMapping("/address")
+    public ResponseEntity<MemberResponseDto> setMemberAddress(@RequestBody MemberRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberAddress(request.getAddress()));
+    }
+
+    @PostMapping("/phone")
+    public ResponseEntity<MemberResponseDto> setMemberPhone(@RequestBody MemberRequestDto request) {
+        return ResponseEntity.ok(memberService.changeMemberPhone(request.getPhone()));
+    }
 }

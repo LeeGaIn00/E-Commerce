@@ -16,7 +16,7 @@
             #regName {
                 width: 30%;
             }
-            #regPhone, #regPassword {
+            #regPhone, #regPassword, #regNewPassword, #regNewPasswordAgain {
                 width: fit-content;
             }
             .pwd-eye-i {
@@ -26,13 +26,13 @@
                 //top: 217px;
             }
             .eye1 {
-                top: 335px;
+                top: 358px;
             }
             .eye2 {
-                top: 415px;
+                top: 438px;
             }
             .eye3 {
-                top: 495px;
+                top: 508px;
             }
             #regPassword {
                 background-image: none;

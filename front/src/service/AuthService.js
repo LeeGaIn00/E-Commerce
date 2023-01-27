@@ -73,6 +73,25 @@ class AuthService {
         return axios.post("http://localhost:8080/member/password", changePwdObj, createTokenHeader(token));
     }
 
+    changeEmailActionHandler = (email, token) => {
+        const changeEmailObj = { email }
+        return axios.post("http://localhost:8080/member/email", changeEmailObj, createTokenHeader(token));
+    }
+
+    changeNameActionHandler = (name, token) => {
+        const changeNameObj = { name }
+        return axios.post("http://localhost:8080/member/name", changeNameObj, createTokenHeader(token));
+    }
+
+    changeAddressActionHandler = (address, token) => {
+        const changeAddressObj = { address }
+        return axios.post("http://localhost:8080/member/address", changeAddressObj, createTokenHeader(token));
+    }
+
+    changePhoneActionHandler = (phone, token) => {
+        const changePhoneObj = { phone }
+        return axios.post("http://localhost:8080/member/phone", changePhoneObj, createTokenHeader(token));
+    }
 }
 
 export default new AuthService();
