@@ -35,11 +35,14 @@ const EditInfo = (props) => {
     const newPhoneInputRef = useRef(null);
     const movePage = useNavigate();
 
+    /* 정보 변경 */
     const [changePassword, setChangePassword] = useState(false);
     const [changeEmail, setChangeEmail] = useState(false);
     const [changeName, setChangeName] = useState(false);
     const [changeAddress, setChangeAddress] = useState(false);
     const [changePhone, setChangePhone] = useState(false);
+
+    const [isPasswordChange, setIsPasswordChange] = useState(false);
     
     /* 입력 폼 */
     const [id, setId] = useState('');
@@ -63,6 +66,8 @@ const EditInfo = (props) => {
         const enteredExPassword = exPasswordInputRef.current?.value;
         const enteredNewPassword = newPasswordInputRef.current?.value;
         const enteredNewPasswordAgain = newPasswordAgainInputRef.current?.value;
+
+        console.log(newPasswordInputRef.current?.value);
         
         if(enteredExPassword === '' || enteredNewPassword === '' || enteredNewPasswordAgain === '') {
             alert("비밀번호를 입력하세요");
@@ -82,6 +87,16 @@ const EditInfo = (props) => {
         else {
             authCtx.changePassword(enteredExPassword, enteredNewPassword);
         }
+    }
+
+    const checkEmail = (email) => {
+        MemberService.checkEmail(email).then(res => {
+            if(res.data) 
+                alert("가입된 이메일입니다.");
+            else
+                alert("사용 가능한 이메일입니다.")
+                setEmailValid(true);
+        });
     }
 
     const changeEmailHandler = (event) => {
@@ -106,15 +121,6 @@ const EditInfo = (props) => {
         else {
             authCtx.changeEmail(enteredEmail);
         }
-    }
-
-    const checkEmail = (event) => {
-        MemberService.checkEmail(email).then(res => {
-            if(res.data) 
-                alert("가입된 이메일입니다.");
-            else
-                setEmailValid(true);
-        });
     }
 
     const changeNameHandler = (event) => {
@@ -180,9 +186,16 @@ const EditInfo = (props) => {
         }
         else {
             if (isSuccess) {
-                authCtx.logout();
-                alert("비밀번호가 변경되었습니다. 다시 로그인하세요");
-                movePage("/");
+                if(isPasswordChange) {
+                    authCtx.logout();
+                    alert("비밀번호가 변경되었습니다. 다시 로그인하세요");
+                    movePage("/");
+                }
+                // 비밀번호 이외의 정보 변경은 페이지 새로고침만 실행
+                else {
+                    alert("정보가 변경되었습니다.");
+                    window.location.replace(`/mypage/${authCtx.user.id}/0`)
+                }
             }
         }
     }, [isSuccess]);
@@ -204,10 +217,10 @@ const EditInfo = (props) => {
                     <tr>
                         <th> 비밀번호 </th>
                         { !changePassword ? 
-                            <td> {console.log(authCtx.user)} </td> : 
+                            <td> ********** </td> : 
                             <td colSpan={2}> 
                                 <div className="ei-info-main">
-                                    <FormGroup>
+                                    <FormGroup onSubmit={changePasswordHandler}>
                                         <Label for="regPassword">
                                             현재 비밀번호
                                         </Label>
@@ -216,39 +229,42 @@ const EditInfo = (props) => {
                                             name="password"
                                             placeholder="비밀번호"
                                             type={showPassword ? 'text' : 'password'}
+                                            innerRef={exPasswordInputRef}
                                         />
                                         {showPassword ? 
                                         <img src={hideIcon} className="pwd-eye-i eye1" onClick={togglePass} alt="hide"/>
                                         : <img src={showIcon} className="pwd-eye-i eye1" onClick={togglePass} alt="show"/>
                                         }
-                                        <Label for="regPassword">
+                                        <Label for="regNewPassword">
                                             새 비밀번호
                                         </Label>
                                         <Input 
-                                            id="regPassword"
+                                            id="regNewPassword"
                                             name="password"
                                             placeholder="비밀번호"
                                             type={showPassword ? 'text' : 'password'}
+                                            innerRef={newPasswordInputRef}
                                         />
                                         {showPassword ? 
                                         <img src={hideIcon} className="pwd-eye-i eye2" onClick={togglePass} alt="hide"/>
                                         : <img src={showIcon} className="pwd-eye-i eye2" onClick={togglePass} alt="show"/>
                                         }
-                                        <Label for="regPassword">
+                                        <Label for="regNewPasswordAgain">
                                             새 비밀번호 확인
                                         </Label>
                                         <Input 
-                                            id="regPassword"
+                                            id="regNewPasswordAgain"
                                             name="password"
                                             placeholder="비밀번호"
                                             type={showPassword ? 'text' : 'password'}
+                                            innerRef={newPasswordAgainInputRef}
                                         />
                                         {showPassword ? 
                                         <img src={hideIcon} className="pwd-eye-i eye3" onClick={togglePass} alt="hide"/>
                                         : <img src={showIcon} className="pwd-eye-i eye3" onClick={togglePass} alt="show"/>
                                         }
                                         <div className="ei-info-btns">
-                                            <button type='submit'> 변경 </button>
+                                            <button onClick={changePasswordHandler}> 변경 </button>
                                             <button onClick={() => setChangePassword(false)}> 취소 </button>
                                         </div>
                                     </FormGroup>
@@ -292,14 +308,19 @@ const EditInfo = (props) => {
                                         이메일
                                     </Label>
                                     <InputGroup>
-                                        <Input id="regEmail" name="email" placeholder="sample@gmail.com"/>
+                                        <Input 
+                                            id="regEmail" 
+                                            name="email" 
+                                            placeholder="sample@gmail.com"
+                                            innerRef={newEmailInputRef}
+                                        />
                                         <Button style= { {borderTopRightRadius:'0.375rem', borderBottomRightRadius:'0.375rem'} } 
-                                                onClick={() => checkEmail(email)}>
+                                                onClick={() => checkEmail(newEmailInputRef.current?.value)}>
                                             중복검사
                                         </Button>
                                     </InputGroup>
                                     <div className="ei-info-btns"> 
-                                        <button type='submit'> 변경 </button> 
+                                        <button onClick={changeEmailHandler}> 변경 </button> 
                                         <button onClick={() => setChangeEmail(false)}> 취소 </button> 
                                     </div>
                                 </FormGroup>
@@ -333,9 +354,14 @@ const EditInfo = (props) => {
                                         <Label for="regName">
                                             이름
                                         </Label>
-                                        <Input id="regName" name="name" placeholder="홍길동" />
+                                        <Input 
+                                            id="regName" 
+                                            name="name" 
+                                            placeholder="홍길동" 
+                                            innerRef={newNameInputRef}
+                                        />
                                         <div className="ei-info-btns"> 
-                                            <button type='submit'> 변경 </button> 
+                                            <button onClick={changeNameHandler}> 변경 </button> 
                                             <button onClick={() => setChangeName(false)}> 취소 </button> 
                                         </div>
                                     </FormGroup>
@@ -366,9 +392,15 @@ const EditInfo = (props) => {
                                         <Label for="regAddress">
                                             주소
                                         </Label>
-                                        <Input id="regAddress" name="address" placeholder="서울특별시 강남구" type="text" />
+                                        <Input 
+                                            id="regAddress" 
+                                            name="address" 
+                                            placeholder="서울특별시 강남구" 
+                                            type="text"
+                                            innerRef={newAddressInputRef} 
+                                        />
                                         <div className="ei-info-btns"> 
-                                            <button type='submit'> 변경 </button>
+                                            <button onClick={changeAddressHandler}> 변경 </button>
                                             <button onClick={() => setChangeAddress(false)}> 취소 </button> 
                                         </div>
                                     </FormGroup>
@@ -399,9 +431,15 @@ const EditInfo = (props) => {
                                         <Label for="regPhone">
                                             전화번호
                                         </Label>
-                                        <Input id="regPhone" name="phone" placeholder="010-0000-0000" type="tel" />
+                                        <Input 
+                                            id="regPhone" 
+                                            name="phone" 
+                                            placeholder="010-0000-0000" 
+                                            type="tel" 
+                                            innerRef={newPhoneInputRef}
+                                        />
                                         <div className="ei-info-btns"> 
-                                            <button type='submit'> 변경 </button> 
+                                            <button onClick={changePhoneHandler}> 변경 </button> 
                                             <button onClick={() => setChangePhone(false)}> 취소 </button> 
                                         </div>
                                     </FormGroup>
