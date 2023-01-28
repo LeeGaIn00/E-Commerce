@@ -37,4 +37,9 @@ public class ReviewController {
         return reviewService.deleteReview(id);
     }
 
+    @GetMapping("/myreview/{memberId}")
+    public List<ReviewResponseDto> getMyReview(@PathVariable String memberId) {
+        return reviewService.getMyReview(memberId);
+    }
+
 }

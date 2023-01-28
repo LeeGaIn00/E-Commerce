@@ -10,7 +10,12 @@ import '../assets/scss/mypage.scss'
 // components
 import MyPageHeader from "../components/MyPageHeader";
 import MyPageNav from "../components/MyPageNav";
-import EditInfo from "../components/EditInfo";
+import MyPageEditInfo from "../components/MyPageEditInfo";
+import MyPageOrder from "../components/MyPageOrder";
+import MyPageCart from "../components/MyPageCart";
+import MyPageReview from "../components/MyPageReview";
+import MyPageInquiry from "../components/MyPageInquiry";
+import MyPageLike from "../components/MyPageLike";
 
 import AuthContext from '../service/AuthContext';
 
@@ -33,7 +38,17 @@ const MyPage = (props) => {
                 <div className='mp-nav'> <MyPageNav /> </div>
                 <div className='edit-info'> 
                 { category === '0' && 
-                    <EditInfo/> } 
+                    <MyPageEditInfo/> } 
+                { category === '1' && 
+                    <MyPageOrder/> }
+                { category === '2' && 
+                    <MyPageCart/> }
+                { category === '3' && 
+                    <MyPageReview/> }
+                { category === '4' && 
+                    <MyPageInquiry/> }
+                { category === '5' && 
+                    <MyPageLike/> } 
                 </div>
                 
                 

@@ -6,6 +6,9 @@ class ReviewService {
     getReviewList(productId) {
         return axios.get(SHOP_API_BASE_URL + "/list/" + productId)
     }
+    getMyReview(memberId) {
+        return axios.get(SHOP_API_BASE_URL + "/myreview/" + memberId);
+    }
     createReview(data) {
         return axios.post(SHOP_API_BASE_URL, data);
     }
