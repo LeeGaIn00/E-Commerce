@@ -30,7 +30,7 @@ const MyPageNav = () => {
             <NavLink href={`/mypage/${id}/1`}>  주문 내역 조회 </NavLink>
             <NavLink href={`/mypage/${id}/2`}>  장바구니 </NavLink>
             <NavLink href={`/mypage/${id}/3`}>  구매후기 </NavLink>
-            <NavLink href={`/mypage/${id}/4`}>  상품후기 </NavLink>
+            <NavLink href={`/mypage/${id}/4`}>  상품문의 </NavLink>
             <NavLink href={`/mypage/${id}/5`}>  좋아요 </NavLink>
         </div>
         

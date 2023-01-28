@@ -32,6 +32,15 @@ public class ReviewService {
         return reviewDtoList;
     }
 
+    public List<ReviewResponseDto> getMyReview(String memberId) {
+        List<ReviewResponseDto> reviewDtoList = reviewRepository.findByMemberId(memberId)
+                .stream()
+                .map(review-> ReviewResponseDto.of(review))
+                .collect(Collectors.toList());
+
+        return reviewDtoList;
+    }
+
     public ReviewResponseDto createReview(ReviewRequestDto reviewRequestDto) {
         Review review = reviewRequestDto.toReview();
         Optional<Product> product = productRepository.findById(reviewRequestDto.getProductId());
