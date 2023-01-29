@@ -1,38 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table } from "reactstrap";
 
+// service
+import AuthContext from '../service/AuthContext';
+
 const MyPageInquiry = () => {
+    const authCtx = useContext(AuthContext);
 
     return (
         <>
             <Table className="inq-tb">
                 <thead>
                     <tr>
-                    <th>
-                        번호
-                    </th>
-                    <th>
-                        답변여부
-                    </th>
-                    <th>
-                        구분
-                    </th>
-                    <th>
-                        내용
-                    </th>
-                    <th>
-                        작성자
-                    </th>
-                    <th>
-                        등록일자
-                    </th>
+                        <th>
+                            답변여부
+                        </th>
+                        <th>
+                            구분
+                        </th>
+                        <th>
+                            내용
+                        </th>
+                        <th>
+                            작성자
+                        </th>
+                        <th>
+                            등록일자
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>
-                            1
-                        </td>
                         <td>
                             Y
                         </td>
@@ -51,9 +49,6 @@ const MyPageInquiry = () => {
                     </tr>
                     <tr>
                         <td>
-                            2
-                        </td>
-                        <td>
                             Y
                         </td>
                         <td>
@@ -70,9 +65,6 @@ const MyPageInquiry = () => {
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            3
-                        </td>
                         <td>
                             N
                         </td>

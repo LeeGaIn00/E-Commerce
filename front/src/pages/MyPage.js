@@ -17,13 +17,13 @@ import MyPageReview from "../components/MyPageReview";
 import MyPageInquiry from "../components/MyPageInquiry";
 import MyPageLike from "../components/MyPageLike";
 
+// service
 import AuthContext from '../service/AuthContext';
+import ShopService from '../service/ShopService';
 
 const MyPage = (props) => {
     const authCtx = useContext(AuthContext);
     const { category }= useParams();
-    const [cateId, setCateId] = useState('0');
-
 
     useEffect(() => {
         authCtx.getUser();
@@ -36,7 +36,7 @@ const MyPage = (props) => {
             <MyPageHeader/>
             <div className='mypage-main'>
                 <div className='mp-nav'> <MyPageNav /> </div>
-                <div className='edit-info'> 
+                <div className='nav-content'> 
                 { category === '0' && 
                     <MyPageEditInfo/> } 
                 { category === '1' && 
