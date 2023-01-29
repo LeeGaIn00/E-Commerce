@@ -18,4 +18,13 @@ public class Wishlist {
     @Id
     @Column(name = "member_id")
     private String memberId;
+
+    public Wishlist(String memberId, Integer productId) {
+        this.memberId = memberId;
+        this.productId = productId;
+    }
+
+    public Wishlist() {
+
+    }
 }

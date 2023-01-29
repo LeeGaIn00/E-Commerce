@@ -9,11 +9,18 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 public class WishlistId implements Serializable {
-    private static final long serialVersionUID = 5735022999922182249L;
+    //private static final long serialVersionUID = 5735022999922182249L;
 
+    @EqualsAndHashCode.Include
     @Column(name = "product_id")
     private Integer productId;
 
-    @Column(name = "memberId")
+    @EqualsAndHashCode.Include
+    @Column(name = "member_id")
     private String memberId;
+
+    public WishlistId(String memberId, Integer productId) {
+        this.memberId = memberId;
+        this.productId = productId;
+    }
 }

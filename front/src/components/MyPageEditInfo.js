@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState, useRef  } from "react";
-import { Form, FormFeedback, FormGroup, Label, Input, Button, InputGroup, Table } from 'reactstrap';
+import { FormGroup, Label, Input, Button, InputGroup, Table } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 
 // styles
-import '../assets/scss/editInfo.scss';
+import '../assets/scss/mypagecomp.scss';
 
 // service
 import MemberService from "../service/MemberService";
