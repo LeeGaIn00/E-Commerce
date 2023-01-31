@@ -48,11 +48,9 @@ function ReviewForm(props) {
         const fileArr = imgRef.current.files;
 
         let fileURLs = [];
-        // let filesLength = fileArr.length > 5 ? 5 : fileArr.length;
         let filesLength = checkNum(fileArr.length);
 
         for (let i = 0; i < filesLength; i++) {
-            console.log(fileArr[i]);
             setFiles(files => [...files, fileArr[i]]);
             let reader = new FileReader();
             reader.onload = () => {
@@ -83,7 +81,7 @@ function ReviewForm(props) {
                 <StarRating setStarHandler={setStarHandler} curStar={mode==="update" ? props.review.star : 0}/>
             </div>
             <Input type="textarea" value={content} onChange={setContentHandler} placeholder='내용' />
-            <div className="preview">
+            <div className="r-preview">
                 <ul>
                     {exImgFile.length > 0 &&
                         exImgFile.map((img, index) => 
@@ -103,11 +101,11 @@ function ReviewForm(props) {
                     }
                 </ul>
             </div>
-            <Label for={`input-file-${mode}`} className="input-file-btn">
+            <Label for={`r-input-file-${mode}`} className="r-lb-file">
                 <FontAwesomeIcon icon={faPlus} />
             </Label>
-            <Input id={`input-file-${mode}`} type="file" accept="image/*" onChange={saveImgFile} innerRef={imgRef} multiple />
-            <span>
+            <Input id={`r-input-file-${mode}`} type="file" accept="image/*" onChange={saveImgFile} innerRef={imgRef} multiple />
+            <span className="r-btn-box">
                 {mode === "create" &&
                     <Button onClick={() => props.createReview(star, content, files)}>등록</Button>
                 }
