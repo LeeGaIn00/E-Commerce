@@ -1,5 +1,6 @@
 package com.ecomm.back.service;
 
+import com.ecomm.back.dto.MyReviewDto;
 import com.ecomm.back.dto.ReviewRequestDto;
 import com.ecomm.back.dto.ReviewResponseDto;
 import com.ecomm.back.exception.ResourceNotFoundException;
@@ -32,10 +33,10 @@ public class ReviewService {
         return reviewDtoList;
     }
 
-    public List<ReviewResponseDto> getMyReview(String memberId) {
-        List<ReviewResponseDto> reviewDtoList = reviewRepository.findByMemberId(memberId)
+    public List<MyReviewDto> getMyReview(String memberId) {
+        List<MyReviewDto> reviewDtoList = reviewRepository.findByMemberId(memberId)
                 .stream()
-                .map(review-> ReviewResponseDto.of(review))
+                .map(review-> MyReviewDto.of(review))
                 .collect(Collectors.toList());
 
         return reviewDtoList;
