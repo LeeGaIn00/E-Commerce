@@ -1,0 +1,177 @@
+/* 정보 수정 */
+.ei-main {
+    Table {
+        th {
+            width: 150px;
+        }
+        td:nth-child(3) {
+            text-align: right;
+        }
+        .ei-info-main {
+            .input-group {
+                width: 60%;
+            }
+            #regEmail, #regAddress {
+                width: 60%;
+            }
+            #regName {
+                width: 30%;
+            }
+            #regPhone, #regPassword, #regNewPassword, #regNewPasswordAgain {
+                width: fit-content;
+            }
+            .pwd-eye-i {
+                cursor: pointer;
+                position: absolute;
+                left: 590px;
+                //top: 217px;
+            }
+            .eye1 {
+                top: 358px;
+            }
+            .eye2 {
+                top: 438px;
+            }
+            .eye3 {
+                top: 508px;
+            }
+            #regPassword {
+                background-image: none;
+                margin-bottom: 10px;
+            }
+            // Button {
+            //     width: fit-content;
+            //     padding: 3px;
+            //     font-size: smaller;
+            // }
+            .ei-info-btns {
+                display: flex;
+                // float: right;
+                margin-top: 10px;
+                button { 
+                    color: white;
+                    background-color: rgb(158, 157, 157);
+                    border: 1px solid rgb(158, 157, 157);
+                    border-radius: 2px;
+                    width: fit-content;
+                    margin-right: 5px;
+                }
+                button:nth-child(1) {
+                    background-color: black;
+                    border: 1px solid black;
+                }
+            }
+        }
+    }
+
+    button {
+        width: 130px;
+    }
+}
+
+/* 리뷰 */
+.review-tb {
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+
+    //border-bottom: 2px solid #dee2e6;
+    padding-left: 0;
+    list-style: none;
+
+    .product {
+        display: flex;
+        
+        img {
+            width: 150px;
+        }
+        .product-info {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin-left: 10px;
+        }
+    }
+    thead {
+        text-align: center;
+    }
+    tbody {
+        .td:not(:first-child):not(:last-child) {
+            padding-bottom: 30px;
+        }
+        .list-item {
+            width: 300px;
+        }
+        .user {
+            padding-bottom: 5px;
+            .col-auto {
+                font-size: 12px;
+            }
+        }
+        .star {
+            display: flex;
+            padding-bottom: 15px;
+            .col-auto {
+                &:not(:first-child) {
+                    padding-left: 0;
+                }
+                &:not(:nth-child(5)) {
+                    padding-right: 0;
+                }
+                &:last-child {
+                    //padding-top: 2px;
+                }
+                .active-star {
+                    fill: #ffc107;
+                }
+            }
+        }
+        .buy-info {
+            img {
+                width: 50px;
+                height: 60px;
+                padding-right: 7px;
+            }
+        }
+        .content {
+            padding-bottom: 15px;
+        }
+        .image {
+            img {
+                width: 120px;
+                height: 160px;
+            }
+        }
+    }
+
+    // }
+}
+
+/* 좋아요 */
+.item-box {
+    .item-list-tb {
+        display: grid;
+        justify-content: space-evenly;
+        grid-template-columns: repeat(4, 220px);
+        width:100%;
+        padding-left: 0;
+        margin-bottom: 0;
+        li {
+            display:inline-block;
+            vertical-align:middle;
+            margin-top: 10px;
+            //margin-left: 30px;
+            margin-bottom: 30px;
+        }
+    }
+    .item-wrap {
+        width: 160px;
+        .item-image {
+            width: 160px;
+            height: 192px;
+            img:nth-child(2) {
+                left: 123px;
+                width: 25px;
+            }
+        }
+    }
+}

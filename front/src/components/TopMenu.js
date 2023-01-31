@@ -53,7 +53,7 @@ function TopMenu(props) {
                     </NavItem> }
                 { isLogin && 
                     <NavItem>
-                        <NavLink href={`/mypage/${id}`}>
+                        <NavLink href={`/mypage/${authCtx.user.id}/0`}>
                             마이페이지
                         </NavLink>
                     </NavItem> }

@@ -13,7 +13,11 @@ const AuthContext = React.createContext({
   logout: () => {},
   getUser: () => {},
   changeProfile: (profile) => {},
-  changePassword: (exPassword, newPassword) => {}
+  changePassword: (exPassword, newPassword) => {},
+  changeEmail: (email) => {},
+  changeName: (name) => {},
+  changeAddress: (address) => {},
+  changePhone: (phone) => {}
 });
 
 export const AuthContextProvider = ({ children }) => {
@@ -107,6 +111,58 @@ export const AuthContextProvider = ({ children }) => {
     }).catch((err) => {alert("비밀번호가 맞지 않습니다");});
   };
 
+  const changeEmailHandler = (newEmail) => {
+    setIsSuccess(false);
+
+    const data = authService.changeEmailActionHandler(newEmail, token);
+    data.then((res) => {
+      if (res && !res.data.error) {
+        setIsSuccess(true);
+      } else {
+        console.log(res);
+      }
+    }).catch((err) => {alert("이메일 변경에 실패하였습니다");});
+  };
+
+  const changeNameHandler = (newName) => {
+    setIsSuccess(false);
+
+    const data = authService.changeNameActionHandler(newName, token);
+    data.then((res) => {
+      if (res && !res.data.error) {
+        setIsSuccess(true);
+      } else {
+        console.log(res);
+      }
+    }).catch((err) => {alert("이름 변경에 실패하였습니다");});
+  };
+  
+  const changeAddressHandler = (newAddress) => {
+    setIsSuccess(false);
+
+    const data = authService.changeAddressActionHandler(newAddress, token);
+    data.then((res) => {
+      if (res && !res.data.error) {
+        setIsSuccess(true);
+      } else {
+        console.log(res);
+      }
+    }).catch((err) => {alert("주소 변경에 실패하였습니다");});
+  };
+
+  const changePhoneHandler = (newPhone) => {
+    setIsSuccess(false);
+
+    const data = authService.changePhoneActionHandler(newPhone, token);
+    data.then((res) => {
+      if (res && !res.data.error) {
+        setIsSuccess(true);
+      } else {
+        console.log(res);
+      }
+    }).catch((err) => {alert("전화번호 변경에 실패하였습니다");});
+  };
+
   useEffect(() => {
     if(tokenData) {
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
@@ -125,7 +181,11 @@ export const AuthContextProvider = ({ children }) => {
     logout: logoutHandler,
     getUser: getUserHandler,
     changeProfile: changeProfileHandler,
-    changePassword: changePasswordHandler
+    changePassword: changePasswordHandler,
+    changeEmail: changeEmailHandler,
+    changeName: changeNameHandler,
+    changeAddress: changeAddressHandler,
+    changePhone: changePhoneHandler
   }
   
   return(

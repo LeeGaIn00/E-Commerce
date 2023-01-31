@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { NavLink } from 'reactstrap';
 
 // components
@@ -7,12 +7,22 @@ import LikeButton from "../components/LikeButton";
 // styles
 import '../assets/scss/item.scss';
 
+// service
+import ShopService from '../service/ShopService';
+import AuthContext from "../service/AuthContext";
+
 function Item(props) {
+    const authCtx = useContext(AuthContext)
     const [like, setLike] = useState();
 
     const toggleLike = () => {
         setLike(!like);
     }
+
+    // useEffect(() => {
+    //     authCtx.getUser();
+    //     setLike(props.like);
+    // }, [props.like]);
 
     return (
         <div className="item-wrap">
@@ -20,9 +30,10 @@ function Item(props) {
                 <div className="item-image">
                     <img src={props.product.image} alt="item-img" />
                     <LikeButton like={like} onClick={(e) => {
-                        e.preventDefault();
-                        toggleLike();
-                    }} />
+                            ShopService.setLike(authCtx.user.id, props.product.id)
+                                e.preventDefault();
+                                toggleLike();
+                            }} />
                 </div>
             </NavLink>
             <div className="item-content">

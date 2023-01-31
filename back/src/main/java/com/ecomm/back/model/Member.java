@@ -50,14 +50,26 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Inquiry> inquiries = new ArrayList<Inquiry>();
 
+    public void setPassword(String password) { this.password = password; }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     @Builder
-    public Member(String id, String email, String password, String name, String address, String phone, Authority authority) {
+    public Member(String id, String password, String email, String name, String address, String phone, Authority authority) {
         this.id = id;
         this.password = password;
         this.email = email;
