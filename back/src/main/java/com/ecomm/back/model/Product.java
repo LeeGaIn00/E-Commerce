@@ -50,4 +50,8 @@ public class Product {
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<Review> reviews = new ArrayList<Review>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<Inquiry> inquiries = new ArrayList<Inquiry>();
 }

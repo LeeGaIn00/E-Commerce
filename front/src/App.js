@@ -9,6 +9,7 @@ import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
 
 import Header from './components/Header';
+import InquiryTab from './components/InquiryTab';
 
 import "./App.css";
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/shop/detail/:id" element={<ShopDetail />} />
         <Route path="/shop/search" element={<SearchPage />}/>
       </Route>
+      <Route path="/shop/inquiry" element={<InquiryTab />} />
       <Route path="/" element={<Navigate replace to="/shop/0" />} />
     </Routes>
   );

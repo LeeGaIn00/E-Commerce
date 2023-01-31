@@ -219,18 +219,9 @@
 
 
 .inq-tab {
-    .write-content {
-        text-align: center;
-        textarea {
-            width: 90%;
-            height: 200px;
-            padding: 10px;
-            resize: none;
-        }
-    }
     .inq-title {
+        float: left;
         font-weight: bold;
-        text-align: left;
         margin-bottom: 20px;
         span {
             &:nth-child(1) {
@@ -268,10 +259,41 @@
             }
         }
         tbody {
+            white-space: pre-wrap;
+            .list-title {
+                cursor: pointer;
+                &:hover {
+                    color: gray;
+                }
+            }
             td {
                 &:nth-child(4) {
                     text-align: left;
                 } 
+            }
+            .collapse {
+                text-align: left;
+            }
+            .image {
+                width: 100px;
+                height: 140px;
+                margin-right: 20px;
+            }
+            .ans-id {
+                font-size: 12px;
+                font-weight: bold;
+                text-align: center;
+                vertical-align: middle;
+            }
+            .btn-box {
+                display: flex;
+                button {
+                    font-size: 12px;
+                    flex: 1;
+                    &:nth-child(1) {
+                        margin-right: 5px;
+                    }
+                }
             }
         }
     }

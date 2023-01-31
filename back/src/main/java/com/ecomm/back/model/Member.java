@@ -46,6 +46,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Review> reviews = new ArrayList<Review>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Inquiry> inquiries = new ArrayList<Inquiry>();
+
     public void setName(String name) {
         this.name = name;
     }

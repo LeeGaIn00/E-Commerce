@@ -19,7 +19,7 @@ textarea {
         border-color: black;
     }
 }
-.preview {
+.r-preview {
     margin-top: 20px;
     &::after {
         display: block;
@@ -47,7 +47,7 @@ textarea {
         }
     }
 }
-.input-file-btn {
+.r-lb-file {
     margin-top: 20px;
     text-align: center;
     width: 60px;
@@ -57,10 +57,10 @@ textarea {
     color: white;
     cursor: pointer;
 }
-#input-file-create, #input-file-update {
+#r-input-file-create, #r-input-file-update {
     display: none;
 }
-span {
+.r-btn-box {
     display: flex;
     justify-content: flex-end;
     button {

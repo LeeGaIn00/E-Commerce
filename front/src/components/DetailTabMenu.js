@@ -61,7 +61,7 @@ function DetailTabMenu(props) {
                     <ReviewTab product={product}/>
                 </TabPane>
                 <TabPane tabId="3">
-                    <InquiryTab />
+                    <InquiryTab product={product}/>
                 </TabPane>
             </TabContent>
         </div>

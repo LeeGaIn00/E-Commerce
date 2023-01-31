@@ -150,7 +150,7 @@ function ReviewTab(props) {
                         {/* order 기능 추가하면 아래에 구매했던 정보로 띄워야함 */}
                         <Row className="buy-info">
                             <Col xs="auto">
-                                <img src={product.image} alt="item-img" />
+                                <img src={product.image} alt="prd-img" />
                             </Col>
                             <Col xs="auto">
                                 {product.name}
