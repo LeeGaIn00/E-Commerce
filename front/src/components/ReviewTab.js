@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Row, Col, Button } from 'reactstrap';
 
 // components
@@ -13,7 +13,20 @@ import '../assets/scss/starrating.scss';
 import ReviewService from '../service/ReviewService';
 import ImageService from '../service/ImageService';
 
+// auth
+import AuthContext from "../service/AuthContext";
+
 function ReviewTab(props) {
+    // auth
+    const authCtx = useContext(AuthContext);
+    let isLogin = authCtx.isLoggedIn;
+
+    useEffect(() => {
+        if (isLogin) {
+            authCtx.getUser();
+        }
+    }, [isLogin]);
+
     const product = props.product;
     const [reviews, setReviews] = useState([]);
     const [isUpdating, setIsUpdating] = useState({now: false, id: null});
@@ -64,7 +77,7 @@ function ReviewTab(props) {
         }
     };
 
-    const updateReview = async (id, star, content, files, exImgFile, deletedFile) => {
+    const updateReview = async (id, star, content, image, files, exImgFile, deletedFile) => {
         if(content === '') {
             alert("내용을 입력해주세요!");
         } else if(star === 0) {
@@ -79,7 +92,7 @@ function ReviewTab(props) {
             };
 
             /* 이미지 삭제 */
-            if(deletedFile.length > 0) {
+            if(deletedFile.length >= 0) {
                 const formData = new FormData();
                 formData.append('exImgFile', exImgFile);
                 formData.append('deletedFile', deletedFile);
@@ -120,10 +133,15 @@ function ReviewTab(props) {
 
     return (
         <div className="review-tab">
-            <div className="write-form">
-                <ReviewForm mode="create" createReview={createReview}/>
-            </div>
-            <hr />
+            {/* 상품 주문 구현하면 해당 상품 주문한 사람만 아래 등록폼 보이게 해야함*/}
+            {isLogin &&
+                <>
+                <div className="write-form">
+                    <ReviewForm mode="create" createReview={createReview} />
+                </div>
+                <hr />
+                </>
+            }
             <ul className="review-list">
                 {reviews.map((review) => 
                     (isUpdating.now && isUpdating.id === review.id) ? 
@@ -170,10 +188,12 @@ function ReviewTab(props) {
                                 )}
                             </Row>
                         }
-                        <Row className="flex-row-reverse">
-                            <Col xs="auto"><Button onClick={() => {deleteReview(review.id)}}>삭제</Button></Col>
-                            <Col xs="auto"><Button onClick={() => {setIsUpdating({now: true, id: review.id})}}>수정</Button></Col>
-                        </Row>
+                        {(isLogin && review.memberId===authCtx.user.id) &&
+                            <Row className="flex-row-reverse">
+                                <Col xs="auto"><Button onClick={() => {deleteReview(review.id)}}>삭제</Button></Col>
+                                <Col xs="auto"><Button onClick={() => {setIsUpdating({now: true, id: review.id})}}>수정</Button></Col>
+                            </Row>
+                        }
                     </li>
                 )}
             </ul>

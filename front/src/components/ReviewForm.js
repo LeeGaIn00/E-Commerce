@@ -111,7 +111,7 @@ function ReviewForm(props) {
                 }
                 {mode === "update" &&
                     <>
-                    <Button onClick={() => props.updateReview(props.review.id, star, content, files, exImgFile, deletedFile)}>수정</Button>
+                    <Button onClick={() => props.updateReview(props.review.id, star, content, props.review.image, files, exImgFile, deletedFile)}>수정</Button>
                     <Button onClick={() => props.updateCancel()}>취소</Button>
                     </>
                 }

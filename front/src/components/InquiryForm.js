@@ -97,7 +97,7 @@ function InquiryForm(props) {
                 productId: null,
                 memberId: null
             }
-            mode === "create" ? 
+            mode === "create" ?
             props.createInquiry(data, files)
             : props.updateInquiry(props.inquiry.id, data, files, exImgFile, deletedFile);
         }

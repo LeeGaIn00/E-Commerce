@@ -13,10 +13,20 @@
         margin-top: 10px;
     }
     .pwd-eye-i {
-        cursor: pointer;
-        position: absolute;
-        left: 365px;
-        top: 217px;
+        padding: 0 5px 0 5px;
+        background: transparent;
+        border-left: none;
+        border-top-right-radius: 0.375rem !important;
+        border-bottom-right-radius: 0.375rem !important;
+        &.error {
+            border-color: #dc3545;
+        }
+        &.success {
+            border-color: #198754;
+        }
+        img {
+            cursor: pointer;
+        }
     }
     #regPassword {
         background-image: none;

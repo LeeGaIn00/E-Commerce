@@ -286,10 +286,11 @@
                 vertical-align: middle;
             }
             .btn-box {
-                display: flex;
+                div {
+                    display: inline-block;
+                }
                 button {
                     font-size: 12px;
-                    flex: 1;
                     &:nth-child(1) {
                         margin-right: 5px;
                     }

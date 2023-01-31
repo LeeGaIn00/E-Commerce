@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useEffect } from 'react';
-import { Form, FormFeedback, FormGroup, Label, Input, Button, InputGroup } from 'reactstrap';
+import { Form, FormFeedback, FormGroup, Label, Input, Button, InputGroup, InputGroupText } from 'reactstrap';
 import { useNavigate } from "react-router-dom";
 
 // svg
@@ -269,22 +269,29 @@ const Register = () => {
                     <Label for="regPassword">
                         비밀번호
                     </Label>
-                    <Input 
-                        id="regPassword"
-                        name="password"
-                        placeholder="비밀번호"
-                        type={showPassword ? 'text' : 'password'}
-                        onChange={setPasswordHandler} 
-                        valid={passwordValid.stat === "success"}
-                        invalid={passwordValid.stat === "error"}
-                    />
-                    {showPassword ? 
-                    <img src={hideIcon} className="pwd-eye-i" onClick={togglePass} alt="hide"/>
-                    : <img src={showIcon} className="pwd-eye-i" onClick={togglePass} alt="show"/>
-                    } 
-                    <FormFeedback>
-                        {passwordValid.msg}
-                    </FormFeedback>
+                    <InputGroup>
+                        <Input 
+                            id="regPassword"
+                            name="password"
+                            placeholder="비밀번호"
+                            type={showPassword ? 'text' : 'password'}
+                            onChange={setPasswordHandler} 
+                            valid={passwordValid.stat === "success"}
+                            invalid={passwordValid.stat === "error"}
+                            style = { {borderRight: 'none'} }
+                        />
+                        <InputGroupText 
+                            className={`pwd-eye-i ${passwordValid.stat}`}
+                        >
+                            {showPassword ? 
+                            <img src={hideIcon} onClick={togglePass} alt="hide"/>
+                            : <img src={showIcon} onClick={togglePass} alt="show"/>
+                            }
+                        </InputGroupText>
+                        <FormFeedback>
+                            {passwordValid.msg}
+                        </FormFeedback>
+                    </InputGroup>
                 </FormGroup>
                 <FormGroup>
                     <Label for="regEmail">

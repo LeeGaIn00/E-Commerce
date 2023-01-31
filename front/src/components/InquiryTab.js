@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Table, Button } from 'reactstrap';
 
 // components
@@ -9,7 +9,20 @@ import Key from "../assets/img/key.png";
 import ImageService from '../service/ImageService';
 import InquiryService from '../service/InquiryService';
 
+// auth
+import AuthContext from "../service/AuthContext";
+
 function InquiryTab(props) {
+    // auth
+    const authCtx = useContext(AuthContext);
+    let isLogin = authCtx.isLoggedIn;
+
+    useEffect(() => {
+        if (isLogin) {
+            authCtx.getUser();
+        }
+    }, [isLogin]);
+
     const product = props.product;
     const [inquiries, setInquiries] = useState([]);
 
@@ -45,13 +58,14 @@ function InquiryTab(props) {
     const updateInquiry = async(id, data, files, exImgFile, deletedFile) => {
         try {
             /* 이미지 삭제 */
-            if(deletedFile.length > 0) {
+            if(deletedFile.length >= 0) {
                 const formData = new FormData();
                 formData.append('exImgFile', exImgFile);
                 formData.append('deletedFile', deletedFile);
                 await ImageService.delete(formData).then(res => {
                     res.data !== null ? data.image = res.data : data.image = '';
                 });
+                console.log(formData);
             }
 
             /* 이미지 업로드 */
@@ -86,12 +100,16 @@ function InquiryTab(props) {
         }
     }
 
-    const showHandler = (e) => {
-        const elementId = e.currentTarget.id;
-        const collapseList = document.getElementsByName(elementId);
-        [...collapseList].map((collapse) => 
-            collapse.className.indexOf("collapse show") > -1 ? collapse.classList.remove("show") : collapse.classList.add("show")
-        );
+    const showHandler = (e, id, secret) => {
+        if(secret && ((isLogin && authCtx.user.id !== id) || !isLogin)) {
+            alert("비밀글입니다");
+        } else {
+            const elementId = e.currentTarget.id;
+            const collapseList = document.getElementsByName(elementId);
+            [...collapseList].map((collapse) => 
+                collapse.className.indexOf("collapse show") > -1 ? collapse.classList.remove("show") : collapse.classList.add("show")
+            );
+        }
     }
 
     return (
@@ -122,25 +140,32 @@ function InquiryTab(props) {
                             <td 
                                 id={inquiry.id} 
                                 className="list-title" 
-                                onClick={showHandler}
+                                onClick={(e) => showHandler(e, inquiry.memberId, inquiry.secret)}
                             >
                                 {inquiry.title} {inquiry.secret ? <img src={Key} alt="secret"/> : null}
                             </td>
                             <td>{inquiry.memberId}</td>
                             <td>{inquiry.createdTime.substr(0, 10)}</td>
                         </tr>
-                        <tr className="collapse" name={inquiry.id}>
-                            <td colSpan={5} style={{borderBottomWidth: inquiry.image.length > 0 ? 0 : 1}}>
-                                {inquiry.content}
-                            </td>
-                            <td className="btn-box" style={{borderBottomWidth: inquiry.image.length > 0 ? 0 : 1}}>
-                                <InquiryForm mode="update" product={product} inquiry={inquiry} updateInquiry={updateInquiry}/>
-                                <Button color='danger' onClick={() => deleteInquiry(inquiry.id)}>
-                                    삭제
-                                </Button>
-                            </td>
-                        </tr>
-                        {inquiry.image.length > 0 &&
+                        {(!inquiry.secret || (isLogin && inquiry.memberId===authCtx.user.id)) &&
+                            <tr className="collapse" name={inquiry.id}>
+                                <td 
+                                    colSpan={isLogin && inquiry.memberId===authCtx.user.id ? 5 : 6} 
+                                    style={{borderBottomWidth: inquiry.image.length > 0 ? 0 : 1}}
+                                >
+                                    {inquiry.content}
+                                </td>
+                                {(isLogin && inquiry.memberId===authCtx.user.id) && 
+                                    <td className="btn-box" style={{borderBottomWidth: inquiry.image.length > 0 ? 0 : 1}}>
+                                        <InquiryForm mode="update" product={product} inquiry={inquiry} updateInquiry={updateInquiry}/>
+                                        <Button color='danger' onClick={() => deleteInquiry(inquiry.id)}>
+                                            삭제
+                                        </Button>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                        {(!inquiry.secret || (isLogin && inquiry.memberId===authCtx.user.id)) && inquiry.image.length > 0 &&
                             <tr className="collapse" name={inquiry.id} style={{borderBottom: "1px solid #dee2e6"}}>
                                     <td style={{borderBottomWidth: 0}} colSpan={6}>
                                         {inquiry.image.map((img, index) => 
@@ -154,7 +179,7 @@ function InquiryTab(props) {
                                     </td>
                             </tr>
                         }
-                        {inquiry.answer &&
+                        {(!inquiry.secret || (isLogin && inquiry.memberId===authCtx.user.id)) && inquiry.answer &&
                             <tr className="collapse" name={inquiry.id} style={{backgroundColor: "#F2F3F4"}}>
                                 <td className="ans-id">
                                     관리자
