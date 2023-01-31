@@ -90,7 +90,6 @@ const Login = () => {
             placeholder="비밀번호"
             type={showPassword ? 'text' : 'password'}
             innerRef={passwordInputRef}
-            value={passwordInputRef.current?.value}
             onKeyPress={onKeyPress}
           />
           {showPassword ? 
