@@ -25,15 +25,14 @@ public class WishlistService {
     @Transactional
     public Wishlist createLike(String memberId, Integer productId) {
         Wishlist wish = new Wishlist(memberId, productId);
-        System.out.println(wishlistRepository.save(wish));
         return wishlistRepository.save(wish);
     }
 
     /* 찜한 상품(my page에서 찜한 목록 나타내기 위함) */
-    public ResponseEntity<List<Product>> getLike(String memberId) {
-        List<Product> product = wishlistRepository.findByMemberId(memberId);
+    public ResponseEntity<List<Integer>> getWishId(String memberId) {
+        List<Integer> idList = wishlistRepository.findWishId(memberId);
 
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(idList);
     }
 
     /* 찜 취소한 상품 테이블에서 삭제 */
@@ -45,5 +44,9 @@ public class WishlistService {
         Map<String, Boolean> response = new HashMap<>();
         response.put("Canceled Wishlist by id : [" + memberId  + ", " + productId + "]", Boolean.TRUE);
         return ResponseEntity.ok(response);
+    }
+
+    public List<Product> getWishlist(String memberId) {
+        return wishlistRepository.findByMemberId(memberId);
     }
 }

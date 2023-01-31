@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Table, Row, Col, Button } from 'reactstrap';
+import React, { useEffect, useState, useContext } from "react";
+import { Table, Row, Col, Button, NavLink } from 'reactstrap';
+import { useParams } from "react-router-dom";
 
 // components
 import { ReactComponent as StarSvg } from "../assets/img/star.svg";
 
 // service
 import ReviewService from '../service/ReviewService';
+import AuthContext from "../service/AuthContext";
 import ShopService from '../service/ShopService';
 
 // styles
 import '../assets/scss/mypagecomp.scss';
 
-const MyPageReview = () => {
-    //const product = [];
+const MyPageReview = (props) => {
+    const authCtx = useContext(AuthContext);
+    const { id } = useParams();
     const [reviews, setReviews] = useState([]);
-    const [product, setProduct] = useState([]);
 
     useEffect(() => {
-        ReviewService.getMyReview("gain").then(res => {
-            //setReviews(res.data);
-            console.log(res.data);
+        ReviewService.getMyReview(id).then(res => {
+            setReviews(res.data);
         });
-    });
+    }, []);
 
     return (
         <>
@@ -36,13 +37,16 @@ const MyPageReview = () => {
                 { reviews.map((review) => 
                     <tr>
                         <td className="list-item">
-                            <div className="product">
-                                <Col> <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="item-img" /> </Col>
-                                <Col className="product-info">
-                                    <div> 상품명 </div>
-                                    <div> 상품 옵션  </div>
-                                </Col>
-                            </div>
+                            {/* 상품정보 들어갈 자리 */}
+                            <NavLink href={`/shop/detail/${review.id}`}>
+                                <div className="product">
+                                    <Col> <img src={encodeURI(review.p_image)} alt="item-img" /> </Col>
+                                    <Col className="product-info">
+                                        <div> {review.name} </div>
+                                        {/* <div> 상품 옵션  </div> */}
+                                    </Col>
+                                </div>
+                            </NavLink>
                         </td> 
                         <td>
                             <div className="user">
@@ -60,9 +64,9 @@ const MyPageReview = () => {
                                 {review.content}
                             </div>
                             <div className="buy-info">
-                                <Col xs="auto">
-                                {review.image.map((img) => 
-                                    <img src={`http://localhost:8080/image?name=${encodeURI(img)}`} alt="review-img" /> )}
+                                <Col xs="auto">  
+                                {review.r_image.map((img) => 
+                                    <img src={`http://localhost:8080/image?name=${encodeURI(img)}`} alt="review-img" /> )} 
                                 </Col>
                 
                             </div>
@@ -71,50 +75,6 @@ const MyPageReview = () => {
                 )}
                 </tbody>
             </Table>
-{/*       
-        <ul className="review-list">
-            <Row className="review-list-header">
-                <Col className="header-content"> 상품정보 </Col>
-                <Col className="header-content"> 내용 </Col>
-            </Row>
-            {reviews.map((review) => 
-            <li key={review.id} className="list-item">
-                    <Row className="star">
-                        {Array.from(Array(review.star), (_, index) => <Col xs="auto" key={index}><StarSvg fill="#ffc107"/></Col>)}
-                        {Array.from(Array(5 - review.star), (_, index) => <Col xs="auto" key={index}><StarSvg fill="#eeeeee"/></Col>)}
-                        <Col xs="auto">
-                            별점
-                        </Col>
-                    </Row>
-                    <Row className="user">
-                        <Col xs="auto">
-                            {review.memberId}
-                        </Col>
-                        <Col xs="auto">
-                            {review.createdTime.substr(0, 10)}
-                        </Col>
-                    </Row>
-                    <Row className="buy-info">
-                        <Col xs="auto">
-                            <img src={product.image} alt="item-img" />
-                        </Col>
-                        <Col xs="auto">
-                            {product.name}
-                            <br />
-                            L 구매
-                        </Col>
-                    </Row>
-                    <Row className="content">
-                        {review.content}
-                    </Row>
-                   
-                    <Row className="flex-row-reverse">
-                        <Col xs="auto"><Button onClick={() => {deleteReview(review.id)}}>삭제</Button></Col>
-                        <Col xs="auto"><Button onClick={() => {setIsUpdating({now: true, id: review.id})}}>수정</Button></Col>
-                    </Row>
-                </li>
-            )}
-            </ul> */}
         </>
     );
 }

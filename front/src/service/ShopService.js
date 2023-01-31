@@ -17,9 +17,15 @@ class ShopService {
     }
     /* 관심상품 */
     setLike(memberId, productId) {
-        console.log(memberId+productId)
         return axios.post("http://localhost:8080/wishlist/" + memberId + "/" + productId)
     }
+    /* 관심상품 취소 */
+    setUnLike(memberId, productId) {
+        return axios.delete("http://localhost:8080/wishlist/" + memberId + "/" + productId)
+    }
+    // getLikeId(category, memberId) {
+    //     return axios.get(SHOP_API_BASE_URL +  "/" + category + "?memberId=" + memberId)
+    // }
 }
 
 export default new ShopService();

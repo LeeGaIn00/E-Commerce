@@ -24,10 +24,13 @@ public interface WishlistRepository extends JpaRepository<Wishlist, WishlistId> 
             + "WHERE w.member_id = ?1)";
 
     /* Like 누른 상품 아이디 */
-    public final static String SELECT_LIKE_ID = ""
-            + "SELECT product_id FROM likes "
+    public final static String SELECT_WISH_ID = ""
+            + "SELECT product_id FROM wishlist "
             + "WHERE member_id=?1";
 
     @Query(value = SELECT_LIKE_PRODUCT, nativeQuery = true)
     List<Product> findByMemberId(final String memberId);
+
+    @Query(value = SELECT_WISH_ID, nativeQuery = true)
+    List<Integer> findWishId(final String memberId);
 }

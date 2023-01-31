@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -73,5 +76,15 @@ public class Member {
         this.address = address;
         this.phone = phone;
         this.authority = authority;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdTime = this.createdTime == null ? new Timestamp(System.currentTimeMillis()) : this.createdTime;
+    }
+
+    public String getCreatedTime() {
+        SimpleDateFormat f = new SimpleDateFormat("yyyy.MM.dd");
+        return f.format(createdTime);
     }
 }

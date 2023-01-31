@@ -19,17 +19,15 @@ import MyPageLike from "../components/MyPageLike";
 
 // service
 import AuthContext from '../service/AuthContext';
-import ShopService from '../service/ShopService';
 
 const MyPage = (props) => {
     const authCtx = useContext(AuthContext);
+    const id = authCtx.user.id;
     const { category }= useParams();
 
     useEffect(() => {
         authCtx.getUser();
     }, []);
-
-   console.log(category)
 
     return (
         <div className="mypage-body">
@@ -38,17 +36,17 @@ const MyPage = (props) => {
                 <div className='mp-nav'> <MyPageNav /> </div>
                 <div className='nav-content'> 
                 { category === '0' && 
-                    <MyPageEditInfo/> } 
+                    <MyPageEditInfo /> } 
                 { category === '1' && 
                     <MyPageOrder/> }
                 { category === '2' && 
                     <MyPageCart/> }
                 { category === '3' && 
-                    <MyPageReview/> }
+                    <MyPageReview id={id}/> }
                 { category === '4' && 
                     <MyPageInquiry/> }
                 { category === '5' && 
-                    <MyPageLike/> } 
+                    <MyPageLike /> } 
                 </div>
                 
                 

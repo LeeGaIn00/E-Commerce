@@ -24,7 +24,7 @@ const MyPageHeader = () => {
                 <div className="info-text">
                     <div className="info-group"> {authCtx.user.id} </div>
                     <br />
-                    <div className="info-group"> 가입일 : 2023.01.01 </div>
+                    <div className="info-group"> 가입일 : {authCtx.user.createdTime} </div>
                 </div>
             </div>
             <hr/>

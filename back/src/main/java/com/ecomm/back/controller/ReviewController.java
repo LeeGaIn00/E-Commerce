@@ -1,5 +1,6 @@
 package com.ecomm.back.controller;
 
+import com.ecomm.back.dto.MyReviewDto;
 import com.ecomm.back.dto.ReviewRequestDto;
 import com.ecomm.back.dto.ReviewResponseDto;
 import com.ecomm.back.service.ReviewService;
@@ -38,7 +39,7 @@ public class ReviewController {
     }
 
     @GetMapping("/myreview/{memberId}")
-    public List<ReviewResponseDto> getMyReview(@PathVariable String memberId) {
+    public List<MyReviewDto> getMyReview(@PathVariable String memberId) {
         return reviewService.getMyReview(memberId);
     }
 

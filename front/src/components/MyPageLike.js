@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 
 // components
 import ItemListTable from "../components/ItemListTable";
@@ -10,11 +11,12 @@ import MyPageService from "../service/MyPageService";
 
 const MyPageLike = () => {
     const authCtx = useContext(AuthContext);
+    const { id } = useParams();
     const [products, setProducts] = useState([]);
     
     useEffect(() => {
         authCtx.getUser();
-        MyPageService.getWishlist("gain").then(res => {
+        MyPageService.getWishlist(id).then(res => {
             setProducts(res.data);
         });
     }, []);

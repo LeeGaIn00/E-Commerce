@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,6 +18,7 @@ public class MemberResponseDto {
     private String name;
     private String address;
     private String phone;
+    private String createdTime;
 
     public static MemberResponseDto of(Member member) {
         return MemberResponseDto.builder()
@@ -24,6 +27,7 @@ public class MemberResponseDto {
                 .name(member.getName())
                 .address(member.getAddress())
                 .phone(member.getPhone())
+                .createdTime(member.getCreatedTime())
                 .build();
     }
 }
