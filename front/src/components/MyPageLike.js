@@ -13,6 +13,7 @@ const MyPageLike = () => {
     const authCtx = useContext(AuthContext);
     const { id } = useParams();
     const [products, setProducts] = useState([]);
+    const [likes, setLikes] = useState([]);
     
     useEffect(() => {
         authCtx.getUser();
@@ -24,7 +25,7 @@ const MyPageLike = () => {
     return (
         <>
             <div className="item-box">
-                <ItemListTable products={products} />
+                <ItemListTable products={products} likes={likes}/>
             </div>
         </>
     );

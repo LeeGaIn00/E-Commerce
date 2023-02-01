@@ -28,7 +28,7 @@ public class ShopController {
     }
 
     /* 카테고리별 상품 불러오기 */
-    @GetMapping("/{categoryId}")
+    @PostMapping("/{categoryId}")
     public List<ProductListDto> getProducts(@PathVariable String categoryId) {
         return shopService.getProducts(Integer.parseInt(categoryId));
     }

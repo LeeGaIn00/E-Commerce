@@ -7,7 +7,7 @@ class ShopService {
         return axios.get(SHOP_API_BASE_URL + "/category-list");
     }
     getProducts(categoryId) {
-        return axios.get(SHOP_API_BASE_URL + "/" + categoryId);
+        return axios.post(SHOP_API_BASE_URL + "/" + categoryId);
     }
     getProductById(id) {
         return axios.get(SHOP_API_BASE_URL + "/detail/" + id);
@@ -20,12 +20,12 @@ class ShopService {
         return axios.post("http://localhost:8080/wishlist/" + memberId + "/" + productId)
     }
     /* 관심상품 취소 */
-    setUnLike(memberId, productId) {
+    setUnlike(memberId, productId) {
         return axios.delete("http://localhost:8080/wishlist/" + memberId + "/" + productId)
     }
-    // getLikeId(category, memberId) {
-    //     return axios.get(SHOP_API_BASE_URL +  "/" + category + "?memberId=" + memberId)
-    // }
+    getLikeId(category, memberId) {
+        return axios.get(SHOP_API_BASE_URL +  "/" + category + "?memberId=" + memberId)
+    }
 }
 
 export default new ShopService();

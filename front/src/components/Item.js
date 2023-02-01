@@ -13,27 +13,28 @@ import AuthContext from "../service/AuthContext";
 
 function Item(props) {
     const authCtx = useContext(AuthContext)
-    const [like, setLike] = useState();
+    const [like, setLike] = useState(props.like);
 
     const toggleLike = () => {
         setLike(!like);
     }
 
-    // useEffect(() => {
-    //     authCtx.getUser();
-    //     setLike(props.like);
-    // }, [props.like]);
+    useEffect(() => {
+        //authCtx.getUser();
+        setLike(props.like);
+    }, [props.like]);
 
     return (
         <div className="item-wrap">
             <NavLink href={`/shop/detail/${props.product.id}`}>
                 <div className="item-image">
                     <img src={props.product.image} alt="item-img" />
-                    <LikeButton like={like} onClick={(e) => {
-                            ShopService.setLike(authCtx.user.id, props.product.id)
-                                e.preventDefault();
-                                toggleLike();
-                            }} />
+                        <LikeButton like={like} onClick={(e) => {
+                            {like ? ShopService.setUnlike(authCtx.user.id, props.product.id)
+                                : ShopService.setLike(authCtx.user.id, props.product.id)};
+                            e.preventDefault();
+                            {props.isList ? props.onUpdate(props.product.id) : toggleLike()};
+                        }} />
                 </div>
             </NavLink>
             <div className="item-content">

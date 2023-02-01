@@ -13,7 +13,7 @@ function ItemListTable(props) {
             <ul className="item-list-tb">
                 {props.products.map(product =>
                     <li key={product.id}>
-                        <Item product={product} />
+                        <Item product={product} like={props.likes.includes(product.id)} isList={false} key={product.id}/>
                     </li>
                 )}
             </ul>

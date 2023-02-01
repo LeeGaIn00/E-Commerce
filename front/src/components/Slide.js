@@ -15,7 +15,7 @@ function Slide(props) {
             <div className="slider-title"> 인기 상품 </div>
             <Slider {...settings}>
                 {props.products.map(product => 
-                    <Item key={product.id} product={product} />
+                    <Item key={product.id} product={product} like={props.likes.includes(product.id)} isList={false}/>
                 )}
             </Slider>
         </div>
