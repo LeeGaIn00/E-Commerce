@@ -30,13 +30,12 @@ public class WishlistController {
         return wishlistService.deleteLike(memberId, productId);
     }
 
-//    /* 찜 누른 상품 아이디 */
-//    @GetMapping("/shop/{categoryId}")
-//    public ResponseEntity<List<Integer>> getWishId(@PathVariable String categoryId,
-//                                                   @RequestParam(value = "memberId", required = true) String memberId) {
-//
-//        return wishlistService.getWishId(memberId);
-//    }
+    /* 찜 누른 상품 아이디 */
+    @GetMapping("/shop/{categoryId}")
+    public ResponseEntity<List<Integer>> getWishId(@PathVariable String categoryId,
+                                   @RequestParam String memberId) {
+        return wishlistService.getWishId(memberId);
+    }
 
 
     /* 카테고리별 상품 불러오기 */

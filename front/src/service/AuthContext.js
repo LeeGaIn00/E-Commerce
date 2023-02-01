@@ -12,7 +12,6 @@ const AuthContext = React.createContext({
   login: (id, password) => {},
   logout: () => {},
   getUser: () => {},
-  changeProfile: (profile) => {},
   changePassword: (exPassword, newPassword) => {},
   changeEmail: (email) => {},
   changeName: (name) => {},
@@ -84,19 +83,6 @@ export const AuthContextProvider = ({ children }) => {
         setIsGetSuccess(true);
       }
     })    
-  };
-
-  const changeProfileHandler = (newProfile) => {
-    setIsSuccess(false);
-
-    const data = authService.changeProfileActionHandler(user.profile, newProfile, token);
-    data.then((res) => {
-      if (res && !res.data.error) {
-        setIsSuccess(true);
-      } else {
-        console.log(res);
-      }
-    }).catch((err) => {alert("프로필 변경에 실패하였습니다");});
   };
 
   const changePasswordHandler = (exPassword, newPassword) => {
@@ -180,7 +166,6 @@ export const AuthContextProvider = ({ children }) => {
     login: loginHandler,
     logout: logoutHandler,
     getUser: getUserHandler,
-    changeProfile: changeProfileHandler,
     changePassword: changePasswordHandler,
     changeEmail: changeEmailHandler,
     changeName: changeNameHandler,

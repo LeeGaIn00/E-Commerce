@@ -36,6 +36,7 @@ public class WishlistService {
     }
 
     /* 찜 취소한 상품 테이블에서 삭제 */
+    @Transactional
     public ResponseEntity<Map<String, Boolean>> deleteLike(String memberId, Integer productId) {
         Wishlist wish = wishlistRepository.findById(new WishlistId(memberId, productId))
                 .orElseThrow(() -> new ResourceNotFoundException("Not exist Wishlist Data by : [" + memberId + "]"));
