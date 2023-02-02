@@ -7,6 +7,7 @@ import CategoryPage from './pages/CategoryPage';
 import ShopDetail from './pages/ShoptDetail';
 import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
+import CartPage from './pages/CartPage';
 
 import Header from './components/Header';
 import InquiryTab from './components/InquiryTab';
@@ -26,6 +27,7 @@ function App() {
       </Route>
       <Route path="/shop/inquiry" element={<InquiryTab />} />
       <Route path="/" element={<Navigate replace to="/shop/0" />} />
+      <Route path="/cart" element={<CartPage />} />
     </Routes>
   );
 }

@@ -1,0 +1,111 @@
+.cart-header {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+.cart-tb {
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+
+    padding-left: 0;
+    list-style: none;
+
+    .product {
+        display: flex;
+        vertical-align: middle;
+
+        .col:nth-child(1) {
+            text-align: center;
+        }
+        
+        img {
+            width: 120px;
+        }
+        .product-info {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            //margin-left: 4px;
+        }
+    }
+    thead {
+        text-align: center;
+    }
+    tbody {
+        td {
+            display: table-cell;
+            vertical-align: middle
+        }
+        .td:not(:first-child):not(:last-child) {
+            padding-bottom: 30px;
+        }
+        .list-item {
+            width: 350px;
+            font-size: small;
+        }
+    }
+
+    .quantity-wrapper {
+        display: inline-grid;
+        width: 100%;
+        max-height: 308px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        .row {
+            width: 100%;
+            .col {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            .option {
+                width: 55%;
+                word-break: break-all;
+            }
+            .quantity {
+                width: 20%;
+                .input-group {
+                    width: 140px;
+                    input {
+                        text-align: center;
+                        &:focus {
+                            box-shadow: none;
+                        }
+                    }
+                    button {
+                        width: 40px;
+                        border-radius: 0;
+                        color: black;
+                        font-weight: bold;
+                        border-color: #dee2e6;
+                        background-color: #dee2e6;
+                        &:focus {
+                            border-color: #dee2e6;
+                            background-color: #dee2e6;
+                        }
+                    }
+                }
+            }
+            .price {
+                width: 20%;
+            }
+            .cancel {
+                width: 5%;
+                button {
+                    &:focus {
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+        // 스크롤바
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+        &::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera*/
+        }
+    }
+}
