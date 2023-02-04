@@ -12,6 +12,12 @@ class ShopService {
     getProductById(id) {
         return axios.get(SHOP_API_BASE_URL + "/detail/" + id);
     }
+    addCart(data) {
+        return axios.post(SHOP_API_BASE_URL + "/cart", data);
+    }
+    getCartItem(memberId) {
+        return axios.get(SHOP_API_BASE_URL + "/cart/" + memberId);
+    }
     search(keyword) {
         return axios.get(SHOP_API_BASE_URL + "/search?keyword=" + keyword)
     }

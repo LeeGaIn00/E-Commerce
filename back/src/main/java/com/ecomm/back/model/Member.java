@@ -53,6 +53,10 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Inquiry> inquiries = new ArrayList<Inquiry>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Cart> carts = new ArrayList<Cart>();
+
     public void setPassword(String password) { this.password = password; }
 
     public void setEmail(String email) {

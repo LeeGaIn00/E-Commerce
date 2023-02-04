@@ -54,4 +54,8 @@ public class Product {
     @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<Inquiry> inquiries = new ArrayList<Inquiry>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private List<Cart> carts = new ArrayList<Cart>();
 }

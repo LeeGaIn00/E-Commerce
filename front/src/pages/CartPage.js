@@ -1,16 +1,24 @@
-import { faEquals, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { checkboxClasses } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Button, NavLink } from 'reactstrap';
+import { useParams } from 'react-router-dom';
 
 // styles
 import '../assets/scss/cartpage.scss'
 
 // components
 import CartItem from '../components/CartItem';
+import ShopService from '../service/ShopService';
 
 function CartPage(props) {
+    const { id } = useParams();
+    const [carts, setCarts] = useState([]);
+
+    useEffect(() => {
+        ShopService.getCartItem(id).then(res => {
+            setCarts(res.data);
+            console.log(res.data)
+        });
+    }, [])
     /* 체크박스 전체 선택 */
     const handleAllCheck = (checked) => {
         
@@ -55,7 +63,7 @@ function CartPage(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    <CartItem/>
+                    <CartItem carts={carts}/>
                 </tbody>
             </Table>
 

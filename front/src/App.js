@@ -27,7 +27,7 @@ function App() {
       </Route>
       <Route path="/shop/inquiry" element={<InquiryTab />} />
       <Route path="/" element={<Navigate replace to="/shop/0" />} />
-      <Route path="/cart" element={<CartPage />} />
+      <Route path="/cart/:id" element={<CartPage />} />
     </Routes>
   );
 }
