@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Getter
 @Entity
-public class Options {
+public class Choice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -1,20 +1,14 @@
 package com.ecomm.back.controller;
 
-import com.ecomm.back.dto.ProductDto;
-import com.ecomm.back.dto.ProductListDto;
+import com.ecomm.back.dto.*;
+import com.ecomm.back.model.Cart;
 import com.ecomm.back.model.Category;
 import com.ecomm.back.service.ShopService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
+import java.nio.file.Path;
 import java.util.List;
-import java.util.StringTokenizer;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,6 +35,17 @@ public class ShopController {
     @GetMapping("/search")
     public List<ProductListDto> search(@RequestParam String keyword){
         return shopService.searchProducts(keyword);
+    }
+
+//    /* 장바구니 */
+//    @PostMapping("/cart")
+//    public Cart addCart(@RequestBody CartRequestDto cartRequestDto) {
+//        return shopService.addCart(cartRequestDto);
+//    }
+
+    @GetMapping("/cart/{memberId}")
+    public List<CartListDto> getCartItem(@PathVariable String memberId) {
+        return shopService.getCartItem(memberId);
     }
 
 //    @PostMapping("/images/upload")
