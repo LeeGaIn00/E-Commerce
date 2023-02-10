@@ -1,13 +1,11 @@
 package com.ecomm.back.controller;
 
 import com.ecomm.back.dto.*;
-import com.ecomm.back.model.Cart;
 import com.ecomm.back.model.Category;
 import com.ecomm.back.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -37,11 +35,11 @@ public class ShopController {
         return shopService.searchProducts(keyword);
     }
 
-//    /* 장바구니 */
-//    @PostMapping("/cart")
-//    public Cart addCart(@RequestBody CartRequestDto cartRequestDto) {
-//        return shopService.addCart(cartRequestDto);
-//    }
+    /* 장바구니 */
+    @PostMapping("/cart")
+    public CartResponseDto addCart(@RequestBody CartRequestDto cartRequestDto) {
+        return shopService.addCart(cartRequestDto);
+    }
 
     @GetMapping("/cart/{memberId}")
     public List<CartListDto> getCartItem(@PathVariable String memberId) {

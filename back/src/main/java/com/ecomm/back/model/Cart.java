@@ -18,14 +18,6 @@ public class Cart {
     @Column(name = "quantity")
     private Integer quantity;
 
-//    @NonNull
-//    @Column(name = "member_id")
-//    private String memberId;
-//
-//    @NonNull
-//    @Column(name = "product_id")
-//    private Integer productId;
-
     @NonNull
     @JsonIgnore
     @ManyToOne
@@ -38,14 +30,16 @@ public class Cart {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @Column(name = "options_id")
-    private Integer optionsId;
+    @NonNull
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "choice_id")
+    private Choice choice;
 
     @Builder
-    public Cart(Integer id, Integer quantity, Integer optionsId) {
+    public Cart(Integer id, Integer quantity) {
         this.id = id;
         this.quantity = quantity;
-        this.optionsId = optionsId;
     }
 
     public void changeProduct(Product product) {
@@ -56,15 +50,9 @@ public class Cart {
         this.member = member;
     }
 
+    public void changeChoice(Choice choice) { this.choice = choice; }
 
     public Cart() {
 
     }
-
-//    public Cart(String memberId, Integer optionsId, Integer productId, Integer quantity) {
-//        this.memberId = memberId;
-//        this.optionsId = optionsId;
-//        this.productId = productId;
-//        this.quantity = quantity;
-//    }
 }

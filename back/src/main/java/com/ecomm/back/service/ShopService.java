@@ -1,17 +1,15 @@
 package com.ecomm.back.service;
 
 import com.ecomm.back.dto.*;
-import com.ecomm.back.model.Cart;
-import com.ecomm.back.model.Category;
+import com.ecomm.back.model.*;
 import com.ecomm.back.model.Product;
-import com.ecomm.back.repository.CartRepository;
-import com.ecomm.back.repository.CategoryRepository;
-import com.ecomm.back.repository.ProductRepository;
+import com.ecomm.back.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +17,8 @@ import java.util.stream.Collectors;
 public class ShopService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    public final MemberRepository memberRepository;
+    public final ChoiceRepository choiceRepository;
     private final CartRepository cartRepository;
 
     public List<Category> getCateList() {
@@ -53,7 +53,7 @@ public class ShopService {
         return productDtoList;
     }
 
-////    장바구니
+//    장바구니
 //    public Cart addCart(CartRequestDto cartRequestDto) {
 //        String memberId = cartRequestDto.getMemberId();
 //        Integer productId = cartRequestDto.getProductId();
@@ -67,9 +67,36 @@ public class ShopService {
 //        else
 //            optionId = productRepository.findOptionSId(productId, op1, op2);
 //
-//        Cart cart = new Cart(memberId, optionId, productId, quantity);
+//        Cart cart = new Cart(quantity, productId, memberId, optionId) ;
 //        return cartRepository.save(cart);
 //    }
+    public CartResponseDto addCart(CartRequestDto cartRequestDto) {
+        Cart cart = cartRequestDto.toCart();
+        Integer productId = cartRequestDto.getProductId();
+        String op1 = cartRequestDto.getOp1();
+        String op2 = cartRequestDto.getOp2();
+        Integer optionId;
+
+        if(op2 == null)
+            optionId = productRepository.findOptionId(productId, op1);
+        else
+            optionId = productRepository.findOptionSId(productId, op1, op2);
+
+        Optional<Product> product = productRepository.findById(cartRequestDto.getProductId());
+        Optional<Member> member = memberRepository.findById(cartRequestDto.getMemberId());
+        Optional<Choice> choice = choiceRepository.findById(optionId);
+
+        product.ifPresent(re->{        // null이 아닌 경우 코드 실행
+            cart.changeProduct(re);
+        });
+        member.ifPresent(re->{
+            cart.changeMember(re);
+        });
+        choice.ifPresent(re->{
+            cart.changeChoice(re);
+        });
+        return CartResponseDto.of(cartRepository.save(cart));
+    }
 
     public List<CartListDto> getCartItem(String memberId) {
         List<CartListDto> cartListDto = cartRepository.findCartList(memberId)

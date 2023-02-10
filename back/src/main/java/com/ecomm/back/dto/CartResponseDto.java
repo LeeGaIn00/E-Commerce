@@ -17,7 +17,7 @@ public class CartResponseDto {
         return CartResponseDto.builder()
                 .memberId(cart.getMember().getId())
                 .productId(cart.getProduct().getId())
-                .optionsId(cart.getOptionsId())
+                .optionsId(cart.getChoice().getId())
                 .quantity(cart.getQuantity())
                 .build();
     }

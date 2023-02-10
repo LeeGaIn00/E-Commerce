@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     public final static String SELECT_OPTION1_ID = ""
             + "SELECT c.id "
-            + "FROM choice "
+            + "FROM choice c "
             + "WHERE c.product_id=?1 "
             + "AND c.option1=?2";
 
