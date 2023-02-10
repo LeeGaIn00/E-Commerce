@@ -21,7 +21,7 @@ public class CartListDto {
     public static CartListDto of(Cart cart) {
         return CartListDto.builder()
                 .productId(cart.getProduct().getId())
-                .optionsId(cart.getOptionsId())
+                .optionsId(cart.getChoice().getId())
                 .quantity(cart.getQuantity())
                 .productName(cart.getProduct().getName())
                 .p_image(cart.getProduct().getImage())

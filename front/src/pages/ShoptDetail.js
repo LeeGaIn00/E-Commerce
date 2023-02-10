@@ -64,7 +64,7 @@ const ShoptDetail = memo((props) => {
             for(let i = 0; i < selectedList.length; i++) {
                 data.op1 = op1[selectedList[i]["op1"]-1];
                 data.quantity = selectedList[i]["quantity"];
-                ShopService.addCart(null).then(res => {
+                ShopService.addCart(data).then(res => {
                     console.log(res.data);
                 })
             }    
