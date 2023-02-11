@@ -4,9 +4,11 @@ import com.ecomm.back.dto.*;
 import com.ecomm.back.model.Category;
 import com.ecomm.back.service.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -44,6 +46,11 @@ public class ShopController {
     @GetMapping("/cart/{memberId}")
     public List<CartListDto> getCartItem(@PathVariable String memberId) {
         return shopService.getCartItem(memberId);
+    }
+
+    @DeleteMapping("/cart/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteCart(@PathVariable Integer id) {
+        return shopService.deleteCart(id);
     }
 
 //    @PostMapping("/images/upload")

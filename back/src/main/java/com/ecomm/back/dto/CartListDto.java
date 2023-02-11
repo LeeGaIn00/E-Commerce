@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CartListDto {
+    private Integer id;
     private Integer productId;
     private Integer optionsId;
     private Integer quantity;
@@ -20,6 +21,7 @@ public class CartListDto {
 
     public static CartListDto of(Cart cart) {
         return CartListDto.builder()
+                .id(cart.getId())
                 .productId(cart.getProduct().getId())
                 .optionsId(cart.getChoice().getId())
                 .quantity(cart.getQuantity())

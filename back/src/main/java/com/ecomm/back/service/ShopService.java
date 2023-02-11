@@ -5,8 +5,10 @@ import com.ecomm.back.model.*;
 import com.ecomm.back.model.Product;
 import com.ecomm.back.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,34 +55,18 @@ public class ShopService {
         return productDtoList;
     }
 
-//    장바구니
-//    public Cart addCart(CartRequestDto cartRequestDto) {
-//        String memberId = cartRequestDto.getMemberId();
-//        Integer productId = cartRequestDto.getProductId();
-//        String op1 = cartRequestDto.getOp1();
-//        String op2 = cartRequestDto.getOp2();
-//        Integer quantity = cartRequestDto.getQuantity();
-//        Integer optionId;
-//
-//        if(op2 == null)
-//            optionId = productRepository.findOptionId(productId, op1);
-//        else
-//            optionId = productRepository.findOptionSId(productId, op1, op2);
-//
-//        Cart cart = new Cart(quantity, productId, memberId, optionId) ;
-//        return cartRepository.save(cart);
-//    }
     public CartResponseDto addCart(CartRequestDto cartRequestDto) {
         Cart cart = cartRequestDto.toCart();
         Integer productId = cartRequestDto.getProductId();
+        String memberId = cartRequestDto.getMemberId();
         String op1 = cartRequestDto.getOp1();
         String op2 = cartRequestDto.getOp2();
         Integer optionId;
 
         if(op2 == null)
-            optionId = productRepository.findOptionId(productId, op1);
+            optionId = choiceRepository.findOptionId(productId, op1);
         else
-            optionId = productRepository.findOptionSId(productId, op1, op2);
+            optionId = choiceRepository.findOptionSId(productId, op1, op2);
 
         Optional<Product> product = productRepository.findById(cartRequestDto.getProductId());
         Optional<Member> member = memberRepository.findById(cartRequestDto.getMemberId());
@@ -95,7 +81,20 @@ public class ShopService {
         choice.ifPresent(re->{
             cart.changeChoice(re);
         });
+
+        // 중복되는 옵션인 경우 수량만 수정
+        Cart tCart = cartRepository.findCart(memberId, optionId);
+        if(tCart != null)
+            cart.update(tCart.getId(), cartRequestDto.getQuantity() + tCart.getQuantity());
+
         return CartResponseDto.of(cartRepository.save(cart));
+    }
+
+    public ResponseEntity<Map<String, Boolean>> deleteCart(Integer id) {
+        cartRepository.deleteById(id);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("Deleted Cart Data by id : [" + id + "]", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 
     public List<CartListDto> getCartItem(String memberId) {

@@ -12,11 +12,15 @@ class ShopService {
     getProductById(id) {
         return axios.get(SHOP_API_BASE_URL + "/detail/" + id);
     }
+    /* 장바구니 */
     addCart(data) {
         return axios.post(SHOP_API_BASE_URL + "/cart", data);
     }
     getCartItem(memberId) {
         return axios.get(SHOP_API_BASE_URL + "/cart/" + memberId);
+    }
+    deleteItem(id) {
+        return axios.delete(SHOP_API_BASE_URL + "/cart/" + id);
     }
     search(keyword) {
         return axios.get(SHOP_API_BASE_URL + "/search?keyword=" + keyword)

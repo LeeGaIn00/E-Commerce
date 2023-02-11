@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Table, Row, Col, Button, NavLink, Input, InputGroup } from 'reactstrap';
 
+
+// service
+import ShopService from '../service/ShopService';
+
 function CartItem(props) {
+
 
     // const [optionNum, setNum] = useState(props.option.num);
     // const [optionSum, setSum] = useState(props.option.sum);
@@ -12,6 +17,17 @@ function CartItem(props) {
     };
     const minusQuantity = (option) => {
     };
+
+    /* 장바구니에서 삭제 */
+    const deleteItem = (id) => {
+        if (window.confirm("상품을 삭제하시겠습니까?")) {
+            ShopService.deleteItem(id).then(res => {
+                if(res.status === 200) {
+                    window.location.reload();
+                }
+            }).catch(error => alert("상품 삭제가 실패했습니다."));
+        }
+    }
 
     return (
         <>
@@ -69,7 +85,7 @@ function CartItem(props) {
                 </td>
                 <td> 
                     <button className="item-dlt" 
-                        // onClick={() => props.onRemove(props.option.id)}
+                        onClick={() => deleteItem(cart.id)}
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="ico_delete--3ASzyXvISn">
                         <path d="M14.278 1.12l.722.72-6.278 6.28L15 14.397l-.722.722L8 8.841 1.722 15.12 1 14.397l6.278-6.278L1 1.841l.722-.722L8 7.397l6.278-6.278z" fill="#BDC0C6">
