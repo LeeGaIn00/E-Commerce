@@ -55,4 +55,9 @@ public class Cart {
     public Cart() {
 
     }
+
+    public void update(Integer id, Integer quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
 }
