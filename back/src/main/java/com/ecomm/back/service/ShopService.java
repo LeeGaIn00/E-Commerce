@@ -1,6 +1,7 @@
 package com.ecomm.back.service;
 
 import com.ecomm.back.dto.*;
+import com.ecomm.back.exception.ResourceNotFoundException;
 import com.ecomm.back.model.*;
 import com.ecomm.back.model.Product;
 import com.ecomm.back.repository.*;
@@ -86,6 +87,15 @@ public class ShopService {
         Cart tCart = cartRepository.findCart(memberId, optionId);
         if(tCart != null)
             cart.update(tCart.getId(), cartRequestDto.getQuantity() + tCart.getQuantity());
+
+        return CartResponseDto.of(cartRepository.save(cart));
+    }
+
+    public CartResponseDto updateCart(Integer id, CartRequestDto cartRequestDto) {
+        Cart cart = cartRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not exist Cart Data by id : [" + id + "]"));
+
+        cart.update(id, cartRequestDto.getQuantity());
 
         return CartResponseDto.of(cartRepository.save(cart));
     }

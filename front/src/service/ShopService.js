@@ -19,6 +19,9 @@ class ShopService {
     getCartItem(memberId) {
         return axios.get(SHOP_API_BASE_URL + "/cart/" + memberId);
     }
+    updateCart(id, data) {
+        return axios.put(SHOP_API_BASE_URL + "/cart/" + id, data);
+    }
     deleteItem(id) {
         return axios.delete(SHOP_API_BASE_URL + "/cart/" + id);
     }

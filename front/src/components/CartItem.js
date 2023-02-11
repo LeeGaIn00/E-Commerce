@@ -6,16 +6,34 @@ import { Table, Row, Col, Button, NavLink, Input, InputGroup } from 'reactstrap'
 import ShopService from '../service/ShopService';
 
 function CartItem(props) {
-
-
-    // const [optionNum, setNum] = useState(props.option.num);
-    // const [optionSum, setSum] = useState(props.option.sum);
-    // const [items, setItems] = useState(props.items);
+    const [cart, setCart] = useState(props.cart);
+    const [quantity, setQuantity] = useState(props.cart.quantity);
+    const [total, setTotal] = useState(props.cart.quantity * props.cart.price);
 
     /* 선택한 옵션의 수량 변경 시 수량 및 가격 반영 */
-    const plusQuantity = (option) => {
+    const plusQuantity = (id) => {
+        let data = {
+            quantity : quantity + 1
+        }
+        ShopService.updateCart(props.cart.id, data).then(res => {
+            if(res.status === 200) {
+                window.location.reload();
+            }
+            // setQuantity(res.data.quantity);
+            // setTotal(res.data.quantity * props.cart.price);
+        })
     };
-    const minusQuantity = (option) => {
+    const minusQuantity = (id) => {
+        let data = {
+            quantity : quantity - 1
+        }
+        ShopService.updateCart(props.cart.id, data).then(res => {
+            if(res.status === 200) {
+                window.location.reload();
+            }
+            // setQuantity(res.data.quantity);
+            // setTotal(res.data.quantity * props.cart.price);
+        })
     };
 
     /* 장바구니에서 삭제 */
@@ -31,14 +49,13 @@ function CartItem(props) {
 
     return (
         <>
-        {props.carts.map(cart => 
             <tr style={{ textAlign: "center" }}>
                 <td scope="row" className="checkbox">
                     <input
                         type="checkbox"
-                        // onChange={(e) => props.handleSingleCheck(e.target.checked, props.option.id)}
-                        // // checkItems에 data.id가 있으면 체크 아니면 체크 해제
-                        // checked={props.checkItems.includes(props.option.id) ? true : false}
+                        onChange={(e) => props.handleSingleCheck(e.target.checked, cart.id)}
+                        // checkItems에 id가 있으면 체크 아니면 체크 해제
+                        checked={props.checkItems.includes(cart.id) ? true : false}
                     />
                 </td>
                 <td className="list-item">
@@ -49,14 +66,15 @@ function CartItem(props) {
                             <Col> <img  src={cart.p_image} alt="item-img" /> </Col>
                             <Col className="product-info" style={{ textAlign: "left" }}>
                                 <div> {cart.productName} </div>
-                                <div> 상품 옵션  </div>
+                                {!props.cart.op2 ? 
+                                    <div> {cart.op1} </div> :
+                                    <div> {cart.op1}, {cart.op2} </div>}
                             </Col>
                         </div>
                     </NavLink>
                 </td> 
                 <td> 
-                    가격
-                    {/* {props.option.price}  */}
+                    {cart.price}
                 </td>
                 <td> 
                     <div className="quantity-wrapper">
@@ -64,13 +82,13 @@ function CartItem(props) {
                             <Col className="quantity">
                                 <InputGroup className="">
                                     <Button outline 
-                                        //onClick={() => minusQty(index, list)} disabled={list.quantity === 1 ? true : false}
+                                        onClick={() => minusQuantity(cart.id)} disabled={quantity === 1 ? true : false}
                                     >
                                         -
                                     </Button>
-                                    <Input value={cart.quantity} readOnly />
+                                    <Input value={quantity} readOnly />
                                     <Button outline 
-                                    //</InputGroup>onClick={() => plusQty(index, list)}
+                                        onClick={() => plusQuantity(cart.id)}
                                     >
                                         +
                                     </Button>
@@ -80,8 +98,7 @@ function CartItem(props) {
                     </div>
                 </td>
                 <td className="total"> 
-                    합계
-                    {/* {props.option.price * optionNum}  */}
+                    {total}
                 </td>
                 <td> 
                     <button className="item-dlt" 
@@ -94,8 +111,7 @@ function CartItem(props) {
                     </button>
                 </td>
             </tr>
-        )}
-    </>
+        </>
     );
 }
 
