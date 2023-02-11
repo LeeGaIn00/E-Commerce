@@ -15,6 +15,7 @@ import java.util.Map;
 @RequestMapping("/shop")
 public class ShopController {
     private final ShopService shopService;
+
     /* 카테고리 불러오기 */
     @GetMapping("/category-list")
     public List<Category> getCateList() {
@@ -46,6 +47,11 @@ public class ShopController {
     @GetMapping("/cart/{memberId}")
     public List<CartListDto> getCartItem(@PathVariable String memberId) {
         return shopService.getCartItem(memberId);
+    }
+
+    @PutMapping("/cart/{id}")
+    public CartResponseDto updateCart(@PathVariable Integer id, @RequestBody CartRequestDto cartRequestDto) {
+        return shopService.updateCart(id, cartRequestDto);
     }
 
     @DeleteMapping("/cart/{id}")
