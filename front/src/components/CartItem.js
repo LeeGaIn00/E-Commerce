@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Table, Row, Col, Button, NavLink, Input, InputGroup } from 'reactstrap';
-
+import { Row, Col, Button, NavLink, Input, InputGroup } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 // service
 import ShopService from '../service/ShopService';
 
 function CartItem(props) {
-    const [cart, setCart] = useState(props.cart);
+    const cart = props.cart;
     const [quantity, setQuantity] = useState(props.cart.quantity);
     const [total, setTotal] = useState(props.cart.quantity * props.cart.price);
 
@@ -16,11 +17,13 @@ function CartItem(props) {
             quantity : quantity + 1
         }
         ShopService.updateCart(props.cart.id, data).then(res => {
-            if(res.status === 200) {
-                window.location.reload();
-            }
-            // setQuantity(res.data.quantity);
-            // setTotal(res.data.quantity * props.cart.price);
+            setQuantity(res.data.quantity);
+            setTotal(res.data.quantity * props.cart.price);
+            if(props.checkItems.filter(check => check !== props.cart.id))
+                props.setTotalPrice(props.totalPrice + props.cart.price)
+            ShopService.getCartItem(props.id).then(res => {
+                props.setCarts(res.data);
+            })
         })
     };
     const minusQuantity = (id) => {
@@ -28,11 +31,13 @@ function CartItem(props) {
             quantity : quantity - 1
         }
         ShopService.updateCart(props.cart.id, data).then(res => {
-            if(res.status === 200) {
-                window.location.reload();
-            }
-            // setQuantity(res.data.quantity);
-            // setTotal(res.data.quantity * props.cart.price);
+            setQuantity(res.data.quantity);
+            setTotal(res.data.quantity * props.cart.price);
+            if(props.checkItems.filter(check => check !== props.cart.id))
+                props.setTotalPrice(props.totalPrice - props.cart.price)
+            ShopService.getCartItem(props.id).then(res => {
+                props.setCarts(res.data);
+            })
         })
     };
 
@@ -104,10 +109,11 @@ function CartItem(props) {
                     <button className="item-dlt" 
                         onClick={() => deleteItem(cart.id)}
                     >
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="ico_delete--3ASzyXvISn">
-                        <path d="M14.278 1.12l.722.72-6.278 6.28L15 14.397l-.722.722L8 8.841 1.722 15.12 1 14.397l6.278-6.278L1 1.841l.722-.722L8 7.397l6.278-6.278z" fill="#BDC0C6">
-                        </path>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="ico_delete--3ASzyXvISn">
+                            <path d="M14.278 1.12l.722.72-6.278 6.28L15 14.397l-.722.722L8 8.841 1.722 15.12 1 14.397l6.278-6.278L1 1.841l.722-.722L8 7.397l6.278-6.278z" fill="black">
+                            </path>
                         </svg>
+                        {/* <FontAwesomeIcon icon={faXmark} className="deleteIcon" /> */}
                     </button>
                 </td>
             </tr>

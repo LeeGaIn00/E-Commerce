@@ -70,12 +70,7 @@ function CartPage(props) {
             setTotalPrice(totalPrice - curPrice);
         }
     }
-
-    /* 체크된 상품 수량 변화 있을 때 가격 계산 */
-    const changeTotalPrice = (id) => {
-       
-    }
-
+    
     return (
         <>
             <div className='cart-header'>
@@ -90,11 +85,11 @@ function CartPage(props) {
                             <input
                                 type="checkbox"
                                 onChange={(e) => handleAllCheck(e.target.checked)}
-                                // checked={
-                                //     checkItems.length != 0 && checkItems.length === items.length
-                                //         ? true
-                                //         : false
-                                // }
+                                checked={
+                                    checkItems.length != 0 && checkItems.length === carts.length
+                                        ? true
+                                        : false
+                                }
                             />
                         </th>
                         <th scope="col" style={{ width: "40%" }}> 상품 </th>
@@ -107,10 +102,14 @@ function CartPage(props) {
                 <tbody>
                     {carts.map(cart =>
                         <CartItem 
+                            id={id}
                             cart={cart}
                             handleSingleCheck={handleSingleCheck}
                             checkItems={checkItems}
                             setCheckItems={setCheckItems}
+                            setCarts={setCarts}
+                            totalPrice={totalPrice}
+                            setTotalPrice={setTotalPrice}
                         />
                     )}
                     
