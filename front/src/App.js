@@ -4,10 +4,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import CategoryPage from './pages/CategoryPage';
-import ShopDetail from './pages/ShoptDetail';
+import ShopDetail from './pages/ShopDetail';
 import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
 import CartPage from './pages/CartPage';
+import OrderPage from './pages/OrderPage';
 
 import Header from './components/Header';
 import InquiryTab from './components/InquiryTab';
@@ -28,6 +29,7 @@ function App() {
       <Route path="/shop/inquiry" element={<InquiryTab />} />
       <Route path="/" element={<Navigate replace to="/shop/0" />} />
       <Route path="/cart/:id" element={<CartPage />} />
+      <Route path="/order/:id" element={<OrderPage />} />
     </Routes>
   );
 }

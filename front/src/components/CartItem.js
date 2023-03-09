@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Row, Col, Button, NavLink, Input, InputGroup } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 // service
 import ShopService from '../service/ShopService';
@@ -16,10 +14,11 @@ function CartItem(props) {
         let data = {
             quantity : quantity + 1
         }
+        console.log(props.checkItems);
         ShopService.updateCart(props.cart.id, data).then(res => {
             setQuantity(res.data.quantity);
             setTotal(res.data.quantity * props.cart.price);
-            if(props.checkItems.filter(check => check !== props.cart.id))
+            if(props.checkItems.includes(props.cart.id))
                 props.setTotalPrice(props.totalPrice + props.cart.price)
             ShopService.getCartItem(props.id).then(res => {
                 props.setCarts(res.data);
@@ -33,7 +32,7 @@ function CartItem(props) {
         ShopService.updateCart(props.cart.id, data).then(res => {
             setQuantity(res.data.quantity);
             setTotal(res.data.quantity * props.cart.price);
-            if(props.checkItems.filter(check => check !== props.cart.id))
+            if(props.checkItems.includes(props.cart.id))
                 props.setTotalPrice(props.totalPrice - props.cart.price)
             ShopService.getCartItem(props.id).then(res => {
                 props.setCarts(res.data);

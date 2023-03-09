@@ -29,12 +29,14 @@ function Item(props) {
             <NavLink href={`/shop/detail/${props.product.id}`}>
                 <div className="item-image">
                     <img src={props.product.image} alt="item-img" />
+                        { authCtx.isLoggedIn && 
                         <LikeButton like={like} onClick={(e) => {
                             {like ? ShopService.setUnlike(authCtx.user.id, props.product.id)
                                 : ShopService.setLike(authCtx.user.id, props.product.id)};
                             e.preventDefault();
                             {props.isList ? props.onUpdate(props.product.id) : toggleLike()};
                         }} />
+                        }
                 </div>
             </NavLink>
             <div className="item-content">
