@@ -27,21 +27,22 @@ const CategoryPage = (props) => {
     const [likes, setLikes] = useState([]);
 
     useEffect(() => {
+        if(isLogin) authCtx.getUser();
         ShopService.getProducts(categoryId).then(res => {
             setProducts(res.data);
             setTestSlideData(res.data.slice(0, 10));
         });  
+
     }, [])
+    
     
     // id 자리 수정 전 !
     useEffect(() => {
-        if(isLogin) {
-            ShopService.getLikeId(categoryId, "gain").then(res => {
-                setLikes(res.data); 
-                console.log(res.data);
-            }) 
-        }
-    }, [isLogin]);
+        ShopService.getLikeId(categoryId, "gain").then(res => {
+            setLikes(res.data);
+        })
+    }, []);
+
 
     useEffect(() => {
         category.length > 0 ? setIsLoading(true) : setIsLoading(false);

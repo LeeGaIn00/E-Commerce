@@ -116,14 +116,13 @@ function CartPage(props) {
                 </tbody>
             </Table>
             <div className='totalPrice'> 금액 : {totalPrice} </div>
-                {/* <div className="ct-buy">
+                <div className="ct-buy">
                         <button 
                         type="button" 
-                        className="btn-round btn"
                         >
                             주문하기
                         </button>
-                </div> */}
+                </div>
 
             
         </>
