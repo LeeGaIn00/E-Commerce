@@ -95,22 +95,28 @@ const ShopDetail = memo((props) => {
             }
         }
     }
+     const getData = () => {
+       let list = [];
+            return new Promise( (resolve, reject) => {
+                selectedList.map(select => {
+                    let data = {
+                        image: product.image,
+                        name: product.name,
+                        op1: op1[Number(select.op1) - 1],
+                        op2: select.op2 != null && op2[Number(select.op2) - 1],
+                        quantity: select.quantity,
+                        price: product.discount * select.quantity
+                    }
+                    list = [...list, data];
+                })
+                resolve(list);
+            })
+          }
 
-     const order = () => {
-        selectedList.map(select => {
-            let data = {
-                image: product.image,
-                name: product.name,
-                op1: select.op1,
-                op2: select.op2,
-                quantity: select.quantity,
-                price: product.price * select.quantity
-            }
-            setOrderList([...orderList, data]);
-        })
-        console.log(orderList);
-        // useNavigate로 데이터 보내고 useLocation으로 받기
-        //navigate(`/order/gain`, {state : {orderList: orderList}}); 
+    const order = () => {
+        getData().then((res) => 
+            navigate(`/order/gain`, {state : { orderList:res }})
+        );
     }
 
     useEffect(

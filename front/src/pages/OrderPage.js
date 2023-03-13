@@ -12,8 +12,8 @@ import ShopService from '../service/ShopService';
 
 function OrderPage(props) {
     const location = useLocation();
-    const products = location.state.orderList;
-
+    const [products, setProducts] = useState(location.state.orderList);
+    const list = [1, 2, 3, 4];
     useEffect(() => {
        console.log(products);
     }, [])
@@ -56,34 +56,37 @@ function OrderPage(props) {
                         </tr>
                     </thead>
                     <tbody>
-                    {products.map(product => {
-                        <td className="list-item">
-                            <NavLink 
-                                //href={`/shop/detail/${review.id}`}
-                            >
-                                <div className="product">
-                                    <Col> <img  src={product.image} alt="item-img" /> </Col>
-                                    <Col className="product-info" style={{ textAlign: "left" }}>
-                                        <div> {product.name} </div>
-                                        {!product.op2 ? 
-                                            <div> {product.op1} </div> :
-                                            <div> {product.op1}, {product.op2} </div>}
-                                    </Col>
-                                </div>
-                            </NavLink>
-                        </td> 
-                    })}
+                        {products.map(product =>
+                            <tr>
+                                <td className="list-item"  style={{ textAlign:'left'}}>
+                                    <NavLink 
+                                        //href={`/shop/detail/${review.id}`}
+                                    >
+                                        <div className="product">
+                                            <Col> <img  src={product.image} alt="item-img" /> </Col>
+                                            <Col className="product-info" style={{ textAlign: "left" }}>
+                                                <div> {product.name} </div>
+                                                {!product.op2 ? 
+                                                    <div> {product.op1} </div> :
+                                                    <div> {product.op1}, {product.op2} </div>}
+                                            </Col>
+                                        </div>
+                                    </NavLink>
+                                </td>   
+                                <td className='list-item' style={{ textAlign:'center'}}> {product.price} </td>
+                                <td className='list-item' style={{ textAlign:'center'}}> {product.quantity} </td>
+                                <td className='list-item' style={{ textAlign:'center'}}> {product.price} </td>
+                            </tr>
+                        )}
                     </tbody>
                 </Table>
             </div>
             <div className='totalPrice'> </div>
                 <div className="ct-buy">
-                        <button 
-                        type="button" 
-                        >
-                            주문하기
-                        </button>
-                </div>
+                    <button type="button">
+                        주문하기
+                    </button>
+            </div>
 
             
         </>
