@@ -9,6 +9,7 @@ import SearchPage from './pages/SearchPage';
 import MyPage from './pages/MyPage';
 import CartPage from './pages/CartPage';
 import OrderPage from './pages/OrderPage';
+import Payment from './pages/Payment';
 
 import Header from './components/Header';
 import InquiryTab from './components/InquiryTab';
@@ -30,6 +31,8 @@ function App() {
       <Route path="/" element={<Navigate replace to="/shop/0" />} />
       <Route path="/cart/:id" element={<CartPage />} />
       <Route path="/order/:id" element={<OrderPage />} />
+      <Route path="/payment" element={<Payment />} />
+      
     </Routes>
   );
 }

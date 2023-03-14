@@ -212,7 +212,7 @@ const EditInfo = (props) => {
                 <tbody>
                     <tr>
                         <th> 아이디 </th>
-                        <td colspan={2}> gain </td>
+                        <td colspan={2}> {authCtx.user.id} </td>
                     </tr>
                     <tr>
                         <th> 비밀번호 </th>

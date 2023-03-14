@@ -13,7 +13,7 @@ import ShopService from '../service/ShopService';
 import AuthContext from '../service/AuthContext';
 
 const ShopDetail = memo((props) => {
-    const {id} = useParams(); // 상품 id
+    const { id } = useParams(); // 상품 id
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
     const isLoggin = authCtx.isLoggedIn;
@@ -23,7 +23,6 @@ const ShopDetail = memo((props) => {
     const [selectedOp1, setSelectedOp1] = useState(0);
     const [selectedOp2, setSelectedOp2] = useState(0);
     const [selectedList, setSelectedList] = useState([]);
-    const [orderList, setOrderList] = useState([]);
 
     useEffect(() => {
         if(isLoggin) authCtx.getUser();
@@ -115,7 +114,7 @@ const ShopDetail = memo((props) => {
 
     const order = () => {
         getData().then((res) => 
-            navigate(`/order/gain`, {state : { orderList:res }})
+            navigate(`/order/gain`, { state : { orderList: res } })
         );
     }
 
