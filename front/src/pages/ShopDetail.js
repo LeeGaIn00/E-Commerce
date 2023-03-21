@@ -13,7 +13,7 @@ import ShopService from '../service/ShopService';
 import AuthContext from '../service/AuthContext';
 
 const ShopDetail = memo((props) => {
-    const {id} = useParams(); // 상품 id
+    const { id } = useParams(); // 상품 id
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
     const isLoggin = authCtx.isLoggedIn;
@@ -23,7 +23,6 @@ const ShopDetail = memo((props) => {
     const [selectedOp1, setSelectedOp1] = useState(0);
     const [selectedOp2, setSelectedOp2] = useState(0);
     const [selectedList, setSelectedList] = useState([]);
-    const [orderList, setOrderList] = useState([]);
 
     useEffect(() => {
         if(isLoggin) authCtx.getUser();
@@ -95,33 +94,33 @@ const ShopDetail = memo((props) => {
             }
         }
     }
-     const getData = () => {
-       let list = [];
-            return new Promise( (resolve, reject) => {
-                selectedList.map(select => {
-                    let data = {
-                        image: product.image,
-                        name: product.name,
-                        op1: op1[Number(select.op1) - 1],
-                        op2: select.op2 != null && op2[Number(select.op2) - 1],
-                        quantity: select.quantity,
-                        price: product.discount * select.quantity
-                    }
-                    list = [...list, data];
-                })
-                resolve(list);
+    const getList = () => {
+        let list = [];
+        return new Promise( (resolve, reject) => {
+            selectedList.map(select => {
+                let data = {
+                    image: product.image,
+                    name: product.name,
+                    op1: op1[Number(select.op1) - 1],
+                    op2: select.op2 != null && op2[Number(select.op2) - 1],
+                    quantity: select.quantity,
+                    price: product.discount * select.quantity
+                }
+                list = [...list, data];
             })
-          }
+            resolve(list);
+        })
+    }
 
     const order = () => {
-        getData().then((res) => 
-            navigate(`/order/gain`, {state : { orderList:res }})
+        getList().then((res) => 
+            navigate(`/order/${authCtx.user.id}`, { state : { orderList: res } })
         );
     }
 
     useEffect(
         () => {
-            if( !op2 && selectedOp1) {
+            if(!op2 && selectedOp1) {
                 console.log("option 선택 완료 => ", selectedOp1);
                 let list = selectedList.find(list => list.op1 === selectedOp1);
                 if(list) {

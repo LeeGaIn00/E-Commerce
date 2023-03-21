@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Table, Row, Col, Button, NavLink } from 'reactstrap';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // styles
 import '../assets/scss/cartpage.scss'
@@ -8,15 +8,32 @@ import '../assets/scss/cartpage.scss'
 // components
 import Headers from '../components/Header';
 import CartItem from '../components/CartItem';
+
+// service
+import AuthContext from '../service/AuthContext';
+import MemberService from "../service/MemberService";
 import ShopService from '../service/ShopService';
 
 function OrderPage(props) {
+    const authCtx = useContext(AuthContext);
     const location = useLocation();
+    const navigation = useNavigate();
     const [products, setProducts] = useState(location.state.orderList);
-    const list = [1, 2, 3, 4];
+    const [address, setAddress] = useState('');
+    const total = products.reduce((prev, current) => prev + current.price, 0);
+    
     useEffect(() => {
-       console.log(products);
+        authCtx.getUser();
     }, [])
+
+    const saveAddress = (e) => {
+        setAddress(e.target.value)
+    }
+
+    const goToPayment = () => {
+        if(address.length == 0) alert("주소를 입력하세요.");
+        else navigation("/payment", {state : { productName: products[0].name, total: total, address: address }})
+    }
     
     return (
         <>
@@ -29,15 +46,19 @@ function OrderPage(props) {
                     <tbody>
                         <tr>
                            <th> 이름 </th>
-                           <td> 이가인 </td>
+                           <td> {authCtx.user.name} </td>
                         </tr>
                         <tr>
                            <th> 연락처 </th>
-                           <td> 010-0000-0000 </td>
+                           <td> {authCtx.user.phone} </td>
                         </tr>
                         <tr>
                            <th> 주소 </th>
-                           <td> <input type='text'/> </td>
+                           <td> <input className='address' 
+                                        type='text'
+                                        placeholder='주소'
+                                        value={address}
+                                        onChange={saveAddress}/> </td>
                         </tr>
                     </tbody>
                 </Table>
@@ -83,8 +104,9 @@ function OrderPage(props) {
             </div>
             <div className='totalPrice'> </div>
                 <div className="ct-buy">
-                    <button type="button">
-                        주문하기
+                    <div className='price'> {total} </div>
+                    <button type="button" onClick={() => goToPayment()}>
+                        결제하기
                     </button>
             </div>
 

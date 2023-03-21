@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Row, Col, Button, NavLink } from 'reactstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 // styles
 import '../assets/scss/cartpage.scss'
@@ -14,6 +14,7 @@ function CartPage(props) {
     const [carts, setCarts] = useState([]);
     const [checkItems, setCheckItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const navigation = useNavigate();
 
     useEffect(() => {
         ShopService.getCartItem(id).then(res => {
@@ -70,6 +71,32 @@ function CartPage(props) {
             setTotalPrice(totalPrice - curPrice);
         }
     }
+
+    const getList = () => {
+        let list = [];
+        return new Promise( (resolve, reject) => {
+            carts.map(select => {
+                if(checkItems.includes(select.id)) {
+                    let data = {
+                        image: select.p_image,
+                        name: select.productName,
+                        op1: select.op1,
+                        op2: select.op2,
+                        quantity: select.quantity,
+                        price: select.price * select.quantity
+                    }
+                    list = [...list, data];
+                }
+            })
+            resolve(list);
+        })
+    }
+
+    const order = () => {
+        getList().then((res) => 
+            navigation(`/order/${id}`, { state : { orderList: res } })
+        );
+    }
     
     return (
         <>
@@ -118,7 +145,8 @@ function CartPage(props) {
             <div className='totalPrice'> 금액 : {totalPrice} </div>
                 <div className="ct-buy">
                         <button 
-                        type="button" 
+                            type="button" 
+                            onClick={order}
                         >
                             주문하기
                         </button>
