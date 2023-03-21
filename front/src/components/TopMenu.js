@@ -63,6 +63,12 @@ function TopMenu(props) {
                             주문배송조회
                         </NavLink>
                     </NavItem> }
+                { isLogin && 
+                    <NavItem> 
+                        <NavLink href={`/cart/${authCtx.user.id}`}>
+                            장바구니  {/* 나중에 장바구니 아이콘으로 변경 */}
+                        </NavLink>
+                    </NavItem> }
             </Nav>
         </div>
     );

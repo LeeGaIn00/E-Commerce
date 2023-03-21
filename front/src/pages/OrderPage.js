@@ -19,10 +19,21 @@ function OrderPage(props) {
     const location = useLocation();
     const navigation = useNavigate();
     const [products, setProducts] = useState(location.state.orderList);
+    const [address, setAddress] = useState('');
+    const total = products.reduce((prev, current) => prev + current.price, 0);
     
     useEffect(() => {
         authCtx.getUser();
     }, [])
+
+    const saveAddress = (e) => {
+        setAddress(e.target.value)
+    }
+
+    const goToPayment = () => {
+        if(address.length == 0) alert("주소를 입력하세요.");
+        else navigation("/payment", {state : { productName: products[0].name, total: total, address: address }})
+    }
     
     return (
         <>
@@ -43,7 +54,11 @@ function OrderPage(props) {
                         </tr>
                         <tr>
                            <th> 주소 </th>
-                           <td> <input type='text'/> </td>
+                           <td> <input className='address' 
+                                        type='text'
+                                        placeholder='주소'
+                                        value={address}
+                                        onChange={saveAddress}/> </td>
                         </tr>
                     </tbody>
                 </Table>
@@ -89,8 +104,8 @@ function OrderPage(props) {
             </div>
             <div className='totalPrice'> </div>
                 <div className="ct-buy">
-                    <div className='price'>  </div>
-                    <button type="button" onClick={() => navigation("/payment", { state: { }})}>
+                    <div className='price'> {total} </div>
+                    <button type="button" onClick={() => goToPayment()}>
                         결제하기
                     </button>
             </div>

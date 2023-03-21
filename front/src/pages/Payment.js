@@ -1,10 +1,13 @@
 import React, { useEffect, useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // service
 import AuthContext from '../service/AuthContext';
 
 const Payment = (effect, deps) => {
 	const authCtx = useContext(AuthContext);
+	const location = useLocation();
+	const navigation = useNavigate();
 	
 	useEffect(() => {
         const jquery = document.createElement("script");
@@ -31,8 +34,8 @@ const Payment = (effect, deps) => {
     		pg: 'html5_inicis',
     		pay_method: 'card',
     		merchant_uid: `mid_${new Date().getTime()}`,
-    		name: '결제 테스트',
-    		amount: '1000',
+    		name: location.state.productName,
+    		amount: location.state.total,
     		custom_data: {
                 name: '부가정보',
                 desc: '세부 부가정보'
@@ -40,7 +43,7 @@ const Payment = (effect, deps) => {
     		buyer_name: authCtx.user.name,
     		buyer_tel: authCtx.user.phone,
     		buyer_email: authCtx.user.email,
-    		buyer_addr: '구천면로 000-00',
+    		buyer_addr: location.state.address,
     		buyer_postalcode: '01234'
     	};
 
@@ -54,6 +57,7 @@ const Payment = (effect, deps) => {
     		alert('결제 성공');
     	} else {
     		alert(`결제 실패: ${error_msg}`);
+			navigation(-3);
     	}
     }
 
