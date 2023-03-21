@@ -145,6 +145,7 @@ function CartPage(props) {
             <div className='totalPrice'> 금액 : {totalPrice} </div>
                 <div className="ct-buy">
                         <button 
+                            className='orderBtn'
                             type="button" 
                             onClick={order}
                         >
